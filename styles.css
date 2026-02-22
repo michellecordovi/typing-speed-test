@@ -20,6 +20,7 @@ body{
 /* HEADER */
 header{
     display: flex;
+    margin-bottom: 64px;
 
     .personal-best{
         display: flex;
@@ -35,6 +36,31 @@ header{
         p{
             width: fit-content;
             font-size: 18px;
+        }
+    }
+}
+
+/* STATS BAR */
+.stats-bar{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    .stats{
+        display: grid;
+        grid-template-columns: auto auto auto;
+        justify-content: start;
+
+        #wpm{
+            padding-right: 24px;
+        }
+
+        #accuracy{
+            padding: 0px 24px;
+        }
+
+        #time{
+            padding-left: 24px;
         }
     }
 }
