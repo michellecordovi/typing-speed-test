@@ -3,6 +3,11 @@
     --light-gray: #949497;
     --dark-gray: #717178;
     --white: #FFF;
+    --light-blue: #4CA6FF;
+    --dark-blue: #177DFF;
+    --red: #D64D5B;
+    --green: #4DD67B;
+    --yellow: #F4DC73;
 }
 
 *{
@@ -45,6 +50,7 @@ header{
 /* STATS BAR */
 .stats-bar{
     width: 100%;
+    padding-bottom: 16px;
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 64px;
@@ -74,13 +80,19 @@ header{
         display: flex;
 
         .toggle{
-                padding: 6px 10px;
-                border-radius: 8px;
-                background-color: transparent;
-                color: var(--white);
-                border: 1px solid var(--dark-gray);
-                cursor: pointer; 
-            }
+            padding: 6px 10px;
+            border-radius: 8px;
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid var(--dark-gray);
+            cursor: pointer; 
+        }
+
+        .toggle:hover{
+            color: var(--light-blue);
+            border: 1px solid var(--light-blue);
+        }
+
 
         .difficulty-toggles-section{
             display: flex;
