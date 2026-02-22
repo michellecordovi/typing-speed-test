@@ -45,12 +45,14 @@ header{
 .stats-bar{
     width: 100%;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: auto auto;
+    column-gap: 64px;
 
     .stats{
         display: grid;
         grid-template-columns: auto auto auto;
         justify-content: start;
+        align-items: center;
 
         #wpm{
             padding-right: 24px;
@@ -58,6 +60,8 @@ header{
 
         #accuracy{
             padding: 0px 24px;
+            border-left: 1px solid var(--dark-gray);
+            border-right: 1px solid var(--dark-gray);
         }
 
         #time{
@@ -74,7 +78,8 @@ header{
                 border-radius: 8px;
                 background-color: transparent;
                 color: var(--white);
-                border: 1px solid var(--dark-gray) ;
+                border: 1px solid var(--dark-gray);
+                cursor: pointer; 
             }
 
         .difficulty-toggles-section{
@@ -93,7 +98,17 @@ header{
 
         .mode-toggles{
             display: flex;
+            align-items: center;
             padding-left: 16px;
+            border-left: 1px solid var(--dark-gray);
+            
+            p{
+                margin-right: 6px;
+            }
+
+            .timed{
+                margin: 0px 6px;
+            }
         }
     }
 }
