@@ -1,5 +1,6 @@
 :root{
     --black: #121212;
+    --light-black: #262626;
     --light-gray: #949497;
     --dark-gray: #717178;
     --white: #FFF;
@@ -51,6 +52,8 @@ header{
 .stats-bar{
     width: 100%;
     padding-bottom: 16px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--light-black);
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 64px;
@@ -135,5 +138,19 @@ header{
                 margin: 0px 6px;
             }
         }
+    }
+}
+
+
+/* PASSAGE */
+.passage-box{
+    width: 100%;
+    padding-bottom: 64px;
+    border-bottom: 1px solid var(--light-black);
+
+    p{
+        font-size: 40px;
+        line-height: 136%;
+        letter-spacing: 0.4px;
     }
 }
