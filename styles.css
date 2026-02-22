@@ -1,6 +1,7 @@
 :root{
     --black: #121212;
     --light-gray: #949497;
+    --dark-gray: #717178;
     --white: #FFF;
 }
 
@@ -61,6 +62,38 @@ header{
 
         #time{
             padding-left: 24px;
+        }
+    }
+
+    .toggles{
+        display: flex;
+
+        .toggle{
+                padding: 6px 10px;
+                font-size: 16px;
+                border-radius: 8px;
+                background-color: transparent;
+                color: var(--white);
+                border: 1px solid var(--dark-gray) ;
+            }
+
+        .difficulty-toggles-section{
+            display: flex;
+            align-items: center;
+            padding-right: 16px;
+
+            p{
+                margin-right: 14px;
+            }
+
+            .medium{
+                margin: 0px 6px;
+            }
+        }
+
+        .mode-toggles{
+            display: flex;
+            padding-left: 16px;
         }
     }
 }
