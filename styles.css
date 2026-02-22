@@ -50,18 +50,21 @@ header{
 
 /* STATS BAR */
 .stats-bar{
-    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--light-black);
-    display: grid;
-    grid-template-columns: auto auto;
-    column-gap: 64px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 20px;
 
     .stats{
         display: grid;
         grid-template-columns: auto auto auto;
         justify-content: start;
         align-items: center;
+        margin-right: 64px;
 
         #wpm{
             padding-right: 24px;
