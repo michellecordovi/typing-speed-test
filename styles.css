@@ -74,10 +74,23 @@ header{
         #time{
             padding-left: 24px;
         }
+
+        p{
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 20px;
+        }
+        p span{
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 100%;
+        }
     }
 
     .toggles{
         display: flex;
+        justify-self: end;
 
         .toggle{
             padding: 6px 10px;
