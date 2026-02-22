@@ -20,43 +20,70 @@
   </style>
 </head>
 <body>
+  <header>
+    <p>Personal best: <!-- PB --> WPM</p>
+  </header>
 
-  Personal best: <!-- PB --> WPM
+  <main>
+    <section class="stats-bar">
+      <!-- REAL TIME STATES -->
+      <div class="stats">
+        <p>WPM:</p>
+        <p>Accuracy:</p>
+        <p>Time:</p>
+      </div>
 
-  WPM: <!-- WPM -->
-  Accuracy: <!-- Accuracy -->
-  Time: <!-- Time -->
+      <!-- DIFFICULTY AND MODE TOGGLES -->
+      <div class="toggles">
+        <div class="difficulty-toggles">
+          <p>Difficulty: </p>
+          <button>Easy</button>
+          <button>Medium</button>
+          <button>Hard</button>
+        </div>
 
-  Difficulty:
-  Easy
-  Medium
-  Hard
+        <div class="mode-toggles">
+          <p>Mode: </p>
+          <button>Timed (60s)</button>
+          <button>Passage</button>
+        </div>
+      </div>
+    </section>
 
-  Mode:
-  Timed (60s)
-  Passage
+    <!-- PASSAGE TEXT BOX -->
+    <section class="passage-box"></section>
 
-  <!-- Passage -->
+    <!-- START TYPING WINDOW -->
+    <section class="start-typing-window">
+      <button>Start Typing Test</button>
+      <p>Or click the text and start typing</p>
+    </section>
 
-  Start Typing Test
-  Or click the text and start typing
+    <!-- TEST COMPLETE WINDOW -->
+    <section class="test-complete-window">
+      <h2>Test Complete!</h2>
+      <p>Solid Run. Keep pushing to beat your high score.</p>
 
-  <!-- Test Complete Start -->
+      <div class="test-results">
+        <div>
+          <p>WPM:</p>
+        </div>
 
-  Test Complete!
-  Solid run. Keep pushing to beat your high score.
+        <div>
+          <p>Accuracy: </p>
+        </div>
 
-  WPM: <!-- WPM -->
-  Accuracy: <!-- Accuracy -->
-  Characters: <!-- Correct/Incorrect -->
+        <div>
+          <p>Characters: </p>
+        </div>
+      </div>
+      <button class="go-again-button">Go Again</button>
+    </section>
+  </main>
 
-  Go Again
-  
-  <!-- Test Complete End -->
-
-  <div class="attribution">
+  <footer class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
     Coded by <a href="#">Your Name Here</a>.
-  </div>
+  </footer>
 </body>
 </html>
