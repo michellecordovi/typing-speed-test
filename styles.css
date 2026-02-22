@@ -1,0 +1,17 @@
+:root{
+    --black: #121212;
+    --light-gray: #949497;
+    --white: #FFF;
+}
+
+*{
+    font-family: Sora, Arial, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: var(--black);
+    color: var(--light-gray);
+;}
