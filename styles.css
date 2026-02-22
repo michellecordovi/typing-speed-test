@@ -23,7 +23,20 @@ body{
     background-color: var(--black);
     color: var(--light-gray);
     padding: 32px 112px;
-;}
+}
+
+main{
+    position: relative;
+}
+
+h1{
+    font-size: 40px;
+    line-height: 136%;
+    letter-spacing: 0.4px;
+    color: var(--white);
+    font-weight: bold;
+    margin: 24px 0px 10px;
+}
 
 /* HEADER */
 header{
@@ -47,6 +60,7 @@ header{
         }
     }
 }
+
 
 /* STATS BAR */
 .stats-bar{
@@ -161,7 +175,7 @@ header{
     .start-typing-window{
         backdrop-filter: blur(10px); 
         font-size: 20px;
-        font-weight: 600;
+        font-weight: 500;
         position: absolute;
         height: 100%;
         width: 100vw;
@@ -184,5 +198,60 @@ header{
             padding: 16px 24px;
             border-radius: 12px;
         }
+    }
+}
+
+/* TEST COMPLETE WINDOW*/
+.test-complete-window{
+    width: 100vw;
+    height: 100%;
+    background-color: var(--black);
+    position: absolute;
+    top: 0px;
+    left: -112px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    p{
+        font-size: 20px;
+    }
+
+    .test-results{
+        display: flex;
+        flex-wrap: wrap;
+        margin: 20px 0px 32px;
+        column-gap: 20px;
+
+        .result-box{
+            padding: 16px 24px;
+            border-radius: 8px;
+            border: 1px solid var(--dark-gray);
+            width: 160px;
+
+            .result{
+                margin-bottom: 10px;
+            }
+
+            .result-number{
+                font-size: 24px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .go-again-button{
+        background-color: var(--white);
+        color: var(--black);
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 120%;
+        letter-spacing: -0.3px;
+        padding: 10px 16px;
+        border-radius: 12px;
+        border: none;
+        display: flex;
+        gap: 6px;
     }
 }
