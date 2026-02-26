@@ -188,9 +188,9 @@ header{
         justify-content: center;
         align-items: center;
         gap: 20px;
-        visibility: hidden; 
+        visibility: visible; 
 
-        button{
+        .start-typing-button{
             background-color: var(--dark-blue);
             font-size: inherit;
             font-weight: inherit;
