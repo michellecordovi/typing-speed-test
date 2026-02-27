@@ -11,14 +11,17 @@ fetch('./data.json')
 .catch(err => console.error(err));
 
 //VARIABLES
-const startTypingWindow = document.querySelector('.start-typing-window');
-const startTypingBtn = document.querySelector('.start-typing-button');
-const passage = document.querySelector('.passage');
+const startTypingWindow = document.querySelector('.start-typing-window'); //Start Typing window
+const startTypingBtn = document.querySelector('.start-typing-button'); //Start Typing button
+const passage = document.querySelector('.passage'); //PASSAGE
+let passageHidden = true; //Passage is hidden true or false
+let difficulty = 'easy'; //difficulty variable - default is 'easy' when page starts
+let mode = 'timed'; //mode variable - default is 'timed' when page starts
+
 
 //Clicking Start Typing button will close start typing window and show passage
 const hideWindow = () =>{
   startTypingWindow.style.visibility = 'hidden';
+  passageHidden = false;
 };
-
-startTypingBtn.addEventListener('click', hideWindow);
 
