@@ -120,7 +120,7 @@ header{
             cursor: pointer; 
         }
 
-        .toggle:hover{
+        .toggle:hover, .easy, .timed-toggle{
             color: var(--light-blue);
             border: 1px solid var(--light-blue);
         }
@@ -150,7 +150,7 @@ header{
                 margin-right: 6px;
             }
 
-            .timed{
+            .timed-toggle{
                 margin: 0px 6px;
             }
         }

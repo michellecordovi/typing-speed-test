@@ -1,3 +1,4 @@
+//fetches passages from json file
 let passages = {};
 
 fetch('./data.json')
@@ -14,6 +15,7 @@ fetch('./data.json')
 const startTypingWindow = document.querySelector('.start-typing-window'); //Start Typing window
 const startTypingBtn = document.querySelector('.start-typing-button'); //Start Typing button
 const passage = document.querySelector('.passage'); //PASSAGE
+const difficultyToggles = document.getElementsByClassName('.difficulty-toggle');
 let passageHidden = true; //Passage is hidden true or false
 let difficulty = 'easy'; //difficulty variable - default is 'easy' when page starts
 let mode = 'timed'; //mode variable - default is 'timed' when page starts
@@ -25,3 +27,7 @@ const hideWindow = () =>{
   passageHidden = false;
 };
 
+//
+for (toggle of difficultyToggles){
+
+}
