@@ -21,13 +21,33 @@ let difficulty = 'easy'; //difficulty variable - default is 'easy' when page sta
 let mode = 'timed'; //mode variable - default is 'timed' when page starts
 
 
+//TOGGLES
+
+//default difficulty
+const highlightDefaultToggles = () =>{
+  //highlights easy button when page starts(default)
+  document.querySelector(`.${difficulty}-toggle`).style.border = '1px solid var(--light-blue)';
+  document.querySelector(`.${difficulty}-toggle`).style.color = 'var(--light-blue)';
+
+  //highlights timed button when page starts (default)
+  document.querySelector(`.${mode}-toggle`).style.border = '1px solid var(--light-blue)';
+  document.querySelector(`.${mode}-toggle`).style.color = 'var(--light-blue)';
+}
+highlightDefaultToggles();
+
+//creates blue border around toggle buttons based on difficulty and mode
+const highlightToggle = (event) => {
+  
+}
+
+for (let toggle of difficultyToggles){
+  toggle.onclick = highlightToggle;
+}
+
 //Clicking Start Typing button will close start typing window and show passage
 const hideWindow = () =>{
   startTypingWindow.style.visibility = 'hidden';
   passageHidden = false;
 };
 
-//
-for (toggle of difficultyToggles){
-
-}
+startTypingBtn.onclick = hideWindow;
