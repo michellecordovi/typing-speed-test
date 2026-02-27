@@ -16,6 +16,7 @@ const startTypingWindow = document.querySelector('.start-typing-window'); //Star
 const startTypingBtn = document.querySelector('.start-typing-button'); //Start Typing button
 const passage = document.querySelector('.passage'); //PASSAGE
 const difficultyToggles = document.querySelectorAll('.difficulty-toggle');
+const modeToggles = document.querySelectorAll('.mode-toggle');
 let passageHidden = true; //Passage is hidden true or false
 let difficulty = 'easy'; //difficulty variable - default is 'easy' when page starts
 let mode = 'timed'; //mode variable - default is 'timed' when page starts
@@ -35,7 +36,23 @@ const selectDifficulty = (event) => {
 
   console.log(difficulty)
 };
-difficultyToggles.forEach(toggle => toggle.addEventListener('click', selectDifficulty))
+difficultyToggles.forEach(toggle => toggle.addEventListener('click', selectDifficulty));
+
+//TOGGLE MODE
+const selectMode = (event) => {
+  let btn= event.target;
+  let selectedMode = btn.dataset.mode;
+
+  if(selectedMode === mode) return;
+
+  mode = selectedMode;
+
+  modeToggles.forEach(toggle => toggle.classList.remove('active'));
+  btn.classList.add('active');
+  
+  console.log(mode);
+}
+modeToggles.forEach(toggle => toggle.addEventListener('click', selectMode));
 
 //Clicking Start Typing button will close start typing window and show passage
 const hideWindow = () =>{
