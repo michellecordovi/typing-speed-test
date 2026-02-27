@@ -15,34 +15,27 @@ fetch('./data.json')
 const startTypingWindow = document.querySelector('.start-typing-window'); //Start Typing window
 const startTypingBtn = document.querySelector('.start-typing-button'); //Start Typing button
 const passage = document.querySelector('.passage'); //PASSAGE
-const difficultyToggles = document.getElementsByClassName('.difficulty-toggle');
+const difficultyToggles = document.querySelectorAll('.difficulty-toggle');
 let passageHidden = true; //Passage is hidden true or false
 let difficulty = 'easy'; //difficulty variable - default is 'easy' when page starts
 let mode = 'timed'; //mode variable - default is 'timed' when page starts
 
 
-//TOGGLES
+//TOGGLE DIFFICULTY
+const selectDifficulty = (event) => {
+  let btn = event.target;
+  let selectedDifficulty = btn.dataset.difficulty;
 
-//default difficulty
-const highlightDefaultToggles = () =>{
-  //highlights easy button when page starts(default)
-  document.querySelector(`.${difficulty}-toggle`).style.border = '1px solid var(--light-blue)';
-  document.querySelector(`.${difficulty}-toggle`).style.color = 'var(--light-blue)';
+  if (selectedDifficulty === difficulty) return;
 
-  //highlights timed button when page starts (default)
-  document.querySelector(`.${mode}-toggle`).style.border = '1px solid var(--light-blue)';
-  document.querySelector(`.${mode}-toggle`).style.color = 'var(--light-blue)';
-}
-highlightDefaultToggles();
+  difficulty = selectedDifficulty;
 
-//creates blue border around toggle buttons based on difficulty and mode
-const highlightToggle = (event) => {
-  
-}
+  difficultyToggles.forEach(toggle => toggle.classList.remove('active'));
+  btn.classList.add('active')
 
-for (let toggle of difficultyToggles){
-  toggle.onclick = highlightToggle;
-}
+  console.log(difficulty)
+};
+difficultyToggles.forEach(toggle => toggle.addEventListener('click', selectDifficulty))
 
 //Clicking Start Typing button will close start typing window and show passage
 const hideWindow = () =>{
