@@ -166,11 +166,15 @@ header{
     border-bottom: 1px solid var(--light-black);
     position: relative;
 
-    .passage{
+    .passage, .passage span{
         font-size: 40px;
         line-height: 136%;
         letter-spacing: 0.4px;
         padding: 16px;
+
+        span{
+            padding: 0px;
+        }
     }
 
     .start-typing-window{
