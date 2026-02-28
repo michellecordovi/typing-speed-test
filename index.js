@@ -89,11 +89,12 @@ const keyPress = (event) => {
   }
 
   if(event.key === gameState.currentCharacter.dataset.char){
-    gameState.currentCharacter.style.color = 'green';
+    gameState.currentCharacter.style.color = 'green';//turns correctly input letter green
     gameState.passageIndex++;
     gameState.currentCharacter = passageWindow.children[gameState.passageIndex]
   } else if ( event.key !== gameState.currentCharacter.dataset.char){
-    gameState.currentCharacter.style.color = 'red';
+    gameState.currentCharacter.style.color = 'red'; //turns incorrectly input letter red and underline
+    gameState.currentCharacter.style.textDecoration = 'underline';
     gameState.passageIndex++;
     gameState.currentCharacter = passageWindow.children[gameState.passageIndex]
   }
