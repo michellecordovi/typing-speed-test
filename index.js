@@ -24,8 +24,8 @@ const gameState = {
   mode: 'timed', //mode variable - default is 'timed' when page starts
   characterCount: 0,
   wordCount: 0,
-  'typed passage':'',
-  'passage index': 0
+  passageIndex: 0,
+  currentCharacter: ''
 };
 
 //TOGGLE DIFFICULTY
@@ -70,12 +70,15 @@ const startTyping = () =>{
     span = document.createElement('span');
     span.classList.add('passage-char');
     span.innerHTML = gameState.passage[i];
+    span.setAttribute('data-char', gameState.passage[i]); 
     passageWindow.appendChild(span);
   }
 
   startTypingWindow.style.visibility = 'hidden';//hides start typing window, shows passage
   gameState.characterCount = gameState.passage.length;//calculates character count
   gameState.wordCount = gameState.passage.split(' ').length;//calculates word count
+  gameState.currentCharacter = passageWindow.children[gameState.passageIndex]//sets current character to first SPAN ELEMENT in the new passage
+  console.log(gameState.currentCharacter)
 };
 startTypingBtn.onclick = startTyping;
 
@@ -85,9 +88,16 @@ const keyPress = (event) => {
     return;
   }
 
-  gameState['typed passage'] += event.key;
-  gameState['passage index']++;
-  console.log(gameState['typed passage'])
+  if(event.key === gameState.currentCharacter.dataset.char){
+    gameState.currentCharacter.style.color = 'green';
+    gameState.passageIndex++;
+    gameState.currentCharacter = passageWindow.children[gameState.passageIndex]
+  } else if ( event.key !== gameState.currentCharacter.dataset.char){
+    gameState.currentCharacter.style.color = 'red';
+    gameState.passageIndex++;
+    gameState.currentCharacter = passageWindow.children[gameState.passageIndex]
+  }
+
 };
 
 document.addEventListener('keypress', keyPress);
