@@ -56,8 +56,11 @@ modeToggles.forEach(toggle => toggle.addEventListener('click', selectMode));
 
 //Clicking Start Typing button will close start typing window and show passage
 const hideWindow = () =>{
+  let randomIndex = Math.floor(Math.random() * passages[difficulty].length);
+
   startTypingWindow.style.visibility = 'hidden';
   passageHidden = false;
+  passage.innerHTML = passages[difficulty][randomIndex].text;//returns random passage based on difficulty selection
 };
 
 startTypingBtn.onclick = hideWindow;
