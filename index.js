@@ -23,7 +23,9 @@ const gameState = {
   difficulty: 'easy', //difficulty variable - default is 'easy' when page starts
   mode: 'timed', //mode variable - default is 'timed' when page starts
   characterCount: 0,
-  wordCount: 0
+  wordCount: 0,
+  'typed passage':'',
+  'passage index': 0
 };
 
 //TOGGLE DIFFICULTY
@@ -65,3 +67,16 @@ const startTyping = () =>{
   gameState.wordCount = gameState.passage.split(' ').length;//calculates word count
 };
 startTypingBtn.onclick = startTyping;
+
+const keyPress = (event) => {
+  // Block control keys and only allow printable characters
+  if (event.key.length > 1 || event.ctrlKey || event.metaKey) {
+    return;
+  }
+
+  gameState['typed passage'] += event.key;
+  gameState['passage index']++;
+  console.log(gameState['typed passage'])
+};
+
+document.addEventListener('keypress', keyPress);
