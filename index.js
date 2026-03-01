@@ -88,16 +88,23 @@ const keyPress = (event) => {
     return;
   }
 
-  if(event.key === gameState.currentCharacter.dataset.char){
+  //normalizes all dashes to === hyphen '-'
+  const normalizeChar = (char) => {
+  return char.replace(/[–—]/g, '-'); // Convert en-dash and em-dash to hyphen
+  };
+ 
+  const typedChar = normalizeChar(event.key);
+  const expectedChar = normalizeChar(gameState.currentCharacter.dataset.char);
+ 
+
+  if(typedChar === expectedChar){
     gameState.currentCharacter.style.color = 'green';//turns correctly input letter green
-    gameState.passageIndex++;
-    gameState.currentCharacter = passageWindow.children[gameState.passageIndex]
-  } else if ( event.key !== gameState.currentCharacter.dataset.char){
+  } else if (typedChar !== expectedChar){
     gameState.currentCharacter.style.color = 'red'; //turns incorrectly input letter red and underline
     gameState.currentCharacter.style.textDecoration = 'underline';
-    gameState.passageIndex++;
-    gameState.currentCharacter = passageWindow.children[gameState.passageIndex]
   }
+  gameState.passageIndex++;
+  gameState.currentCharacter = passageWindow.children[gameState.passageIndex]
 
 };
 
