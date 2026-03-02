@@ -56,6 +56,26 @@ const selectMode = (event) => {
 }
 modeToggles.forEach(toggle => toggle.addEventListener('click', selectMode));
 
+
+//UI FUNCTIONS
+//make function that highlights the current character to be types
+const highlightCurrentCharacter = (character) => {
+  character.style.backgroundColor = 'var(--dark-gray)';
+  character.style.color = 'var(--white)';
+}
+//make function to turn a character green if correctly input (this should remove the background from when it was highlighted as the current character)
+const turnCharacterGreen = (character) => {
+  character.style.color = 'green';
+  character.style.backgroundColor = 'var(--black)';
+}
+//make function to turn a character red if incorrect
+const turnCharacterRed = (character) => {
+  character.style.color = 'red';
+  character.style.textDecoration = 'underline';
+  character.style.backgroundColor = 'var(--black)';
+}
+
+
 //Clicking Start Typing button will close start typing window and show passage
 const startTyping = () =>{
   let randomIndex = Math.floor(Math.random() * passages[gameState.difficulty].length);
@@ -78,6 +98,7 @@ const startTyping = () =>{
   gameState.characterCount = gameState.passage.length;//calculates character count
   gameState.wordCount = gameState.passage.split(' ').length;//calculates word count
   gameState.currentCharacter = passageWindow.children[gameState.passageIndex]//sets current character to first SPAN ELEMENT in the new passage
+  highlightCurrentCharacter(gameState.currentCharacter);
   console.log(gameState.currentCharacter)
 };
 startTypingBtn.onclick = startTyping;
@@ -98,13 +119,14 @@ const keyPress = (event) => {
  
 
   if(typedChar === expectedChar){
-    gameState.currentCharacter.style.color = 'green';//turns correctly input letter green
+    turnCharacterGreen(gameState.currentCharacter);
   } else if (typedChar !== expectedChar){
-    gameState.currentCharacter.style.color = 'red'; //turns incorrectly input letter red and underline
-    gameState.currentCharacter.style.textDecoration = 'underline';
+    turnCharacterRed(gameState.currentCharacter);
   }
-  gameState.passageIndex++;
-  gameState.currentCharacter = passageWindow.children[gameState.passageIndex]
+
+  gameState.passageIndex++;//changes passage index
+  gameState.currentCharacter = passageWindow.children[gameState.passageIndex]//updates next character based on index
+  highlightCurrentCharacter(gameState.currentCharacter); //next character is highlighted 
 
 };
 
