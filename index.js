@@ -64,14 +64,14 @@ modeToggles.forEach((toggle) => toggle.addEventListener("click", selectMode));
 const highlightCurrentCharacter = (character) => {
 	character.style.backgroundColor = "var(--dark-gray)";
 	character.style.color = "var(--white)";
-  character.style.textDecoration = 'none';
+	character.style.textDecoration = "none";
 };
 
 //make function to turn a character green if correctly input (this should remove the background from when it was highlighted as the current character)
 const turnCharacterGreen = (character) => {
 	character.style.color = "green";
 	character.style.backgroundColor = "var(--black)";
-  character.style.textDecoration = 'none';
+	character.style.textDecoration = "none";
 };
 //make function to turn a character red if incorrect
 const turnCharacterRed = (character) => {
@@ -113,17 +113,20 @@ startTypingBtn.onclick = startTyping;
 const keyPress = (event) => {
 	// Block control keys and only allow printable characters, except backspace/delete
 	if (event.key === "Backspace" || event.key === "Delete") {
-    if(gameState.passageIndex > 0 ){
-      gameState.currentCharacter.style.backgroundColor = 'inherit'; //undoes highlight of previous character
-      gameState.currentCharacter.style.color = 'var(--light-gray)';
-		  gameState.passageIndex--; //changes passage index -1
-		  gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
-		highlightCurrentCharacter(gameState.currentCharacter);
-    }
-    return;
+		if (gameState.passageIndex > 0) {
+			gameState.currentCharacter.style.backgroundColor = "inherit"; //undoes highlight of previous character
+			gameState.currentCharacter.style.color = "var(--light-gray)";
+			gameState.passageIndex--; //changes passage index -1
+			gameState.currentCharacter =
+			passageWindow.children[gameState.passageIndex]; //updates next character based on index
+			highlightCurrentCharacter(gameState.currentCharacter);
+		}
+		event.preventDefault(); //prevent default behavior of typing keys
+		return;
 	} else if (event.key.length > 1 || event.ctrlKey || event.metaKey) {
 		return;
 	}
+	event.preventDefault(); //prevent default behavior of typing keys, including spacebar
 
 	//normalizes all dashes to === hyphen '-'
 	const normalizeChar = (char) => {
