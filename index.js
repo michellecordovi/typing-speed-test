@@ -49,35 +49,6 @@ const selectMode = (event) => {
 };
 modeToggles.forEach((toggle) => toggle.addEventListener("click", selectMode));
 
-
-//Clicking Start Typing button will close start typing window and show passage
-const startTyping = () => {
-	let randomIndex = Math.floor(
-		Math.random() * passages[gameState.difficulty].length,
-	);
-	let span;
-
-	passageWindow.innerHTML = ""; //clears default passage places at document load
-	gameState.passage = passages[gameState.difficulty][randomIndex].text; //assigns passage a random passage based on difficulty selection
-
-	//creates a span element with the letter of each letter in the passage, adds this to the passage window
-	//this way, when typing, each letter's color can be individually changed
-	for (let i = 0; i < gameState.passage.length; i++) {
-		span = document.createElement("span");
-		span.classList.add("passage-char");
-		span.innerHTML = gameState.passage[i];
-		span.setAttribute("data-char", gameState.passage[i]);
-		passageWindow.appendChild(span);
-	}
-
-	startTypingWindow.style.visibility = "hidden"; //hides start typing window, shows passage
-	gameState.characterCount = gameState.passage.length; //calculates character count
-	gameState.wordCount = gameState.passage.split(" ").length; //calculates word count
-	gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //sets current character to first SPAN ELEMENT in the new passage
-	highlightCurrentCharacter(gameState.currentCharacter);
-};
-startTypingBtn.onclick = startTyping;
-
 //KEY PRESS EVENT LISTENER
 const keyPress = (event) => {
 	// Block control keys and only allow printable characters, except backspace/delete
@@ -114,4 +85,32 @@ const keyPress = (event) => {
 	highlightCurrentCharacter(gameState.currentCharacter); //next character is highlighted
 };
 
-document.addEventListener("keydown", keyPress);
+//GAME START
+const startTyping = () => {
+	let randomIndex = Math.floor(
+		Math.random() * passages[gameState.difficulty].length,
+	);
+	let span;
+
+	passageWindow.innerHTML = ""; //clears default passage places at document load
+	gameState.passage = passages[gameState.difficulty][randomIndex].text; //assigns passage a random passage based on difficulty selection
+
+	//creates a span element with the letter of each letter in the passage, adds this to the passage window
+	//this way, when typing, each letter's color can be individually changed
+	for (let i = 0; i < gameState.passage.length; i++) {
+		span = document.createElement("span");
+		span.classList.add("passage-char");
+		span.innerHTML = gameState.passage[i];
+		span.setAttribute("data-char", gameState.passage[i]);
+		passageWindow.appendChild(span);
+	}
+
+	startTypingWindow.style.visibility = "hidden"; //hides start typing window, shows passage
+	gameState.characterCount = gameState.passage.length; //calculates character count
+	gameState.wordCount = gameState.passage.split(" ").length; //calculates word count
+	gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //sets current character to first SPAN ELEMENT in the new passage
+	highlightCurrentCharacter(gameState.currentCharacter); //highlights first character at start of game
+	document.addEventListener("keydown", keyPress); //turns on event listener for key pressing once game has started
+};
+startTypingBtn.onclick = startTyping; //Clicking Start Typing button will close start typing window, set gameState properties, and show passage
+
