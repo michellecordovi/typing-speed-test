@@ -1,15 +1,5 @@
-//fetches passages from json file
-let passages = {};
-
-fetch("./data.json")
-	.then((response) => response.json())
-	.then((data) => {
-		passages = data;
-		let randomI = Math.floor(Math.random() * passages.hard.length);
-		document.querySelector(".passage").innerHTML =
-			passages.hard[randomI].text;
-	})
-	.catch((err) => console.error(err));
+import {passages} from './modules/data.js'; //returns object of passages
+import { highlightCurrentCharacter, turnCharacterGreen, turnCharacterRed } from './modules/ui.js';
 
 //DOCUMENT POINTER VARIABLES
 const startTypingWindow = document.querySelector(".start-typing-window"); //Start Typing window
@@ -59,26 +49,6 @@ const selectMode = (event) => {
 };
 modeToggles.forEach((toggle) => toggle.addEventListener("click", selectMode));
 
-//UI FUNCTIONS
-//make function that highlights the current character to be types
-const highlightCurrentCharacter = (character) => {
-	character.style.backgroundColor = "var(--dark-gray)";
-	character.style.color = "var(--white)";
-	character.style.textDecoration = "none";
-};
-
-//make function to turn a character green if correctly input (this should remove the background from when it was highlighted as the current character)
-const turnCharacterGreen = (character) => {
-	character.style.color = "green";
-	character.style.backgroundColor = "var(--black)";
-	character.style.textDecoration = "none";
-};
-//make function to turn a character red if incorrect
-const turnCharacterRed = (character) => {
-	character.style.color = "red";
-	character.style.textDecoration = "underline";
-	character.style.backgroundColor = "var(--black)";
-};
 
 //Clicking Start Typing button will close start typing window and show passage
 const startTyping = () => {
@@ -105,7 +75,6 @@ const startTyping = () => {
 	gameState.wordCount = gameState.passage.split(" ").length; //calculates word count
 	gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //sets current character to first SPAN ELEMENT in the new passage
 	highlightCurrentCharacter(gameState.currentCharacter);
-	console.log(gameState.currentCharacter);
 };
 startTypingBtn.onclick = startTyping;
 
@@ -117,8 +86,7 @@ const keyPress = (event) => {
 			gameState.currentCharacter.style.backgroundColor = "inherit"; //undoes highlight of previous character
 			gameState.currentCharacter.style.color = "var(--light-gray)";
 			gameState.passageIndex--; //changes passage index -1
-			gameState.currentCharacter =
-			passageWindow.children[gameState.passageIndex]; //updates next character based on index
+			gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
 			highlightCurrentCharacter(gameState.currentCharacter);
 		}
 		event.preventDefault(); //prevent default behavior of typing keys
@@ -141,7 +109,6 @@ const keyPress = (event) => {
 	} else if (typedChar !== expectedChar) {
 		turnCharacterRed(gameState.currentCharacter);
 	}
-
 	gameState.passageIndex++; //changes passage index
 	gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
 	highlightCurrentCharacter(gameState.currentCharacter); //next character is highlighted
