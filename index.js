@@ -4,6 +4,8 @@ import { highlightCurrentCharacter, turnCharacterGreen, turnCharacterRed } from 
 //DOCUMENT POINTER VARIABLES
 const startTypingWindow = document.querySelector(".start-typing-window"); //Start Typing window
 const startTypingBtn = document.querySelector(".start-typing-button"); //Start Typing button
+const testCompleteWindow = document.querySelector('.test-complete-window'); //test complete window at end of game
+const goAgainBtn = document.querySelector('.go-again-button'); //go again button at end of game
 const passageWindow = document.querySelector(".passage"); //Passage container
 const difficultyToggles = document.querySelectorAll(".difficulty-toggle"); //
 const modeToggles = document.querySelectorAll(".mode-toggle");
@@ -51,6 +53,7 @@ modeToggles.forEach((toggle) => toggle.addEventListener("click", selectMode));
 
 //KEY PRESS EVENT LISTENER
 const keyPress = (event) => {
+	console.log(event.key)
 	// Block control keys and only allow printable characters, except backspace/delete
 	if (event.key === "Backspace" || event.key === "Delete") {
 		if (gameState.passageIndex > 0) {
@@ -83,6 +86,11 @@ const keyPress = (event) => {
 	gameState.passageIndex++; //changes passage index
 	gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
 	highlightCurrentCharacter(gameState.currentCharacter); //next character is highlighted
+
+	//end game
+	if(gameState.passageIndex + 1 === gameState.passage.length){
+		endGame()
+	}
 };
 
 //GAME START
@@ -114,3 +122,7 @@ const startTyping = () => {
 };
 startTypingBtn.onclick = startTyping; //Clicking Start Typing button will close start typing window, set gameState properties, and show passage
 
+const endGame = () => {
+	testCompleteWindow.style.visibility = 'visible'; //results window appears
+	document.removeEventListener('keydown', keyPress); //when game is over, document stops listening for keys input
+};
