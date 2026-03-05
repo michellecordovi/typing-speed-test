@@ -79,18 +79,20 @@ const keyPress = (event) => {
 	const expectedChar = normalizeChar(gameState.currentCharacter.dataset.char);
 
 	if (typedChar === expectedChar) {
-		turnCharacterGreen(gameState.currentCharacter);
+		turnCharacterGreen(gameState.currentCharacter); //correct input turns green
 	} else if (typedChar !== expectedChar) {
-		turnCharacterRed(gameState.currentCharacter);
+		turnCharacterRed(gameState.currentCharacter); //incorrect input turns red
 	}
-	gameState.passageIndex++; //changes passage index
-	gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
-	highlightCurrentCharacter(gameState.currentCharacter); //next character is highlighted
 
-	//end game
-	if(gameState.passageIndex + 1 === gameState.passage.length){
-		endGame()
+	gameState.passageIndex++; //changes passage index +1 for every character input
+
+	if(gameState.passageIndex === gameState.passage.length){
+		endGame(); //end game if they've typed in all characters
+	} else {
+		gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
+		highlightCurrentCharacter(gameState.currentCharacter); //next character is highlighted
 	}
+
 };
 
 //GAME START
@@ -113,16 +115,27 @@ const startTyping = () => {
 		passageWindow.appendChild(span);
 	}
 
-	startTypingWindow.style.visibility = "hidden"; //hides start typing window, shows passage
+	startTypingWindow.style.display = "none"; //hides start typing window, shows passage
 	gameState.characterCount = gameState.passage.length; //calculates character count
 	gameState.wordCount = gameState.passage.split(" ").length; //calculates word count
+	gameState.passageIndex = 0; //passage index resets to 0 at start of game
 	gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //sets current character to first SPAN ELEMENT in the new passage
 	highlightCurrentCharacter(gameState.currentCharacter); //highlights first character at start of game
 	document.addEventListener("keydown", keyPress); //turns on event listener for key pressing once game has started
 };
 startTypingBtn.onclick = startTyping; //Clicking Start Typing button will close start typing window, set gameState properties, and show passage
 
+
+//END GAME FUNTION
 const endGame = () => {
-	testCompleteWindow.style.visibility = 'visible'; //results window appears
+	testCompleteWindow.style.display = 'flex'; //results window appears
 	document.removeEventListener('keydown', keyPress); //when game is over, document stops listening for keys input
 };
+
+goAgainBtn.addEventListener('click', () => {
+	testCompleteWindow.style.display = 'none';
+	startTypingWindow.style.display = 'flex';
+
+	let randomI = Math.floor(Math.random() * passages.medium.length);
+	document.querySelector(".passage").innerHTML = passages.medium[randomI].text; //puts random passage in the background of start typing screen
+});
