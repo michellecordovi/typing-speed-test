@@ -38,6 +38,10 @@ h1{
     margin: 24px 0px 10px;
 }
 
+button {
+    cursor: pointer;
+}
+
 /* HEADER */
 header{
     display: flex;
