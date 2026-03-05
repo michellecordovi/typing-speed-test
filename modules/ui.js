@@ -1,5 +1,9 @@
 //UI FUNCTIONS
 
+const statsColorChange = (statElement, color) => {
+	statElement.style.color = `var(--${color})`
+}
+
 //highlights the current character to be types
 const highlightCurrentCharacter = (character) => {
 	character.style.backgroundColor = "var(--dark-gray)";
@@ -21,4 +25,4 @@ const turnCharacterRed = (character) => {
 	character.style.backgroundColor = "var(--black)";
 };
 
-export {highlightCurrentCharacter, turnCharacterGreen, turnCharacterRed};
+export {highlightCurrentCharacter, turnCharacterGreen, turnCharacterRed, statsColorChange};

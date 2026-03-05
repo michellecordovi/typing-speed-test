@@ -1,5 +1,5 @@
 import {passages} from './modules/data.js'; //returns object of passages
-import { highlightCurrentCharacter, turnCharacterGreen, turnCharacterRed } from './modules/ui.js';
+import { highlightCurrentCharacter, turnCharacterGreen, turnCharacterRed, statsColorChange } from './modules/ui.js';
 
 //DOCUMENT POINTER VARIABLES
 const startTypingWindow = document.querySelector(".start-typing-window"); //Start Typing window
@@ -7,6 +7,9 @@ const startTypingBtn = document.querySelector(".start-typing-button"); //Start T
 const testCompleteWindow = document.querySelector('.test-complete-window'); //test complete window at end of game
 const goAgainBtn = document.querySelector('.go-again-button'); //go again button at end of game
 const passageWindow = document.querySelector(".passage"); //Passage container
+const wpm = document.getElementById('wpm'); //wpm counter
+const accuracy = document.getElementById('accuracy'); //accuracy counter
+const time = document.getElementById('time');
 const difficultyToggles = document.querySelectorAll(".difficulty-toggle"); //
 const modeToggles = document.querySelectorAll(".mode-toggle");
 
@@ -129,6 +132,9 @@ const startTyping = () => {
 	gameState.passageIndex = 0; //passage index resets to 0 at start of game
 	gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //sets current character to first SPAN ELEMENT in the new passage
 	highlightCurrentCharacter(gameState.currentCharacter); //highlights first character at start of game
+	statsColorChange(wpm, 'white');
+	statsColorChange(accuracy, 'green');
+	statsColorChange(time, 'yellow');
 	document.addEventListener("keydown", keyPress); //turns on event listener for key pressing once game has started
 };
 startTypingBtn.onclick = startTyping; //Clicking Start Typing button will close start typing window, set gameState properties, and show passage

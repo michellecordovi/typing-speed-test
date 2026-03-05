@@ -84,17 +84,17 @@ header{
         align-items: center;
         margin-right: 64px;
 
-        #wpm{
+        .wpm-stat-box{
             padding-right: 24px;
         }
 
-        #accuracy{
+        .accuracy-stat-box{
             padding: 0px 24px;
             border-left: 1px solid var(--dark-gray);
             border-right: 1px solid var(--dark-gray);
         }
 
-        #time{
+        .time-stat-box{
             padding-left: 24px;
         }
 
