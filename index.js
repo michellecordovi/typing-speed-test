@@ -22,6 +22,12 @@ const gameState = {
 	wordCount: 0,
 	passageIndex: 0,
 	currentCharacter: "",
+	correctCharacters: 0,
+
+	calculateAccuracy() {
+		let index = this.passageIndex + 1;
+		return Math.round(this.correctCharacters / index * 100) + '%';
+	}
 };
 
 //TOGGLE DIFFICULTY
@@ -64,7 +70,8 @@ modeToggles.forEach((toggle) => toggle.addEventListener("click", selectMode));
 
 //KEY PRESS EVENT LISTENER
 const keyPress = (event) => {
-	console.log(event.key)
+	event.preventDefault(); //prevent default behavior of typing keys, including spacebar
+
 	// Block control keys and only allow printable characters, except backspace/delete
 	if (event.key === "Backspace" || event.key === "Delete") {
 		if (gameState.passageIndex > 0) {
@@ -74,12 +81,10 @@ const keyPress = (event) => {
 			gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
 			highlightCurrentCharacter(gameState.currentCharacter);
 		}
-		event.preventDefault(); //prevent default behavior of typing keys
 		return;
 	} else if (event.key.length > 1 || event.ctrlKey || event.metaKey) {
 		return;
 	}
-	event.preventDefault(); //prevent default behavior of typing keys, including spacebar
 
 	//normalizes all dashes to === hyphen '-'
 	const normalizeChar = (char) => {
@@ -90,10 +95,17 @@ const keyPress = (event) => {
 	const expectedChar = normalizeChar(gameState.currentCharacter.dataset.char);
 
 	if (typedChar === expectedChar) {
+		gameState.correctCharacters++; //increase correct characters entered
 		turnCharacterGreen(gameState.currentCharacter); //correct input turns green
 	} else if (typedChar !== expectedChar) {
 		turnCharacterRed(gameState.currentCharacter); //incorrect input turns red
 	}
+
+	accuracy.innerHTML = gameState.calculateAccuracy(); //updates accuracy stat with each key press
+
+	if(accuracy.innerHTML !== '100%'){
+		statsColorChange(accuracy, 'red')
+	} //changes accuracy stat to red when its below 100%
 
 	gameState.passageIndex++; //changes passage index +1 for every character input
 
@@ -103,7 +115,6 @@ const keyPress = (event) => {
 		gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
 		highlightCurrentCharacter(gameState.currentCharacter); //next character is highlighted
 	}
-
 };
 
 //GAME START
