@@ -26,12 +26,16 @@ const selectDifficulty = (event) => {
 	let btn = event.target;
 	let selectedDifficulty = btn.dataset.difficulty;
 
-	if (selectedDifficulty === gameState.difficulty) return;
+	if (selectedDifficulty === gameState.difficulty) return; //if selected difficulty is already in place, nothing happens.
 
-	gameState.difficulty = selectedDifficulty;
+	gameState.difficulty = selectedDifficulty; //update difficulty based on selection
 
-	difficultyToggles.forEach((toggle) => toggle.classList.remove("active"));
-	btn.classList.add("active");
+	difficultyToggles.forEach((toggle) => toggle.classList.remove("active")); //remove 'active' className for all toggles
+	btn.classList.add("active"); //add 'active' class name to only the toggle that was pressed
+
+	if(startTypingWindow.style.display === 'none'){
+		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
+	}
 };
 difficultyToggles.forEach((toggle) =>
 	toggle.addEventListener("click", selectDifficulty),
@@ -42,12 +46,16 @@ const selectMode = (event) => {
 	let btn = event.target;
 	let selectedMode = btn.dataset.mode;
 
-	if (selectedMode === gameState.mode) return;
+	if (selectedMode === gameState.mode) return; //if selected mode is already in place, nothing happens.
 
-	gameState.mode = selectedMode;
+	gameState.mode = selectedMode; //update mode based on selection
 
-	modeToggles.forEach((toggle) => toggle.classList.remove("active"));
-	btn.classList.add("active");
+	modeToggles.forEach((toggle) => toggle.classList.remove("active")); //remove 'active' className for all toggles
+	btn.classList.add("active"); //add 'active' class name to only the toggle that was pressed
+
+	if(startTypingWindow.style.display === 'none'){
+		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
+	}
 };
 modeToggles.forEach((toggle) => toggle.addEventListener("click", selectMode));
 
@@ -132,10 +140,12 @@ const endGame = () => {
 	document.removeEventListener('keydown', keyPress); //when game is over, document stops listening for keys input
 };
 
-goAgainBtn.addEventListener('click', () => {
+//start over
+const startOver = () => {
 	testCompleteWindow.style.display = 'none';
 	startTypingWindow.style.display = 'flex';
 
 	let randomI = Math.floor(Math.random() * passages.medium.length);
 	document.querySelector(".passage").innerHTML = passages.medium[randomI].text; //puts random passage in the background of start typing screen
-});
+};
+goAgainBtn.addEventListener('click', startOver);
