@@ -1,15 +1,20 @@
-import {passages} from './modules/data.js'; //returns object of passages
-import { highlightCurrentCharacter, turnCharacterGreen, turnCharacterRed, statsColorChange } from './modules/ui.js';
+import { passages } from "./modules/data.js"; //returns object of passages
+import {
+	highlightCurrentCharacter,
+	turnCharacterGreen,
+	turnCharacterRed,
+	statsColorChange,
+} from "./modules/ui.js";
 
 //DOCUMENT POINTER VARIABLES
 const startTypingWindow = document.querySelector(".start-typing-window"); //Start Typing window
 const startTypingBtn = document.querySelector(".start-typing-button"); //Start Typing button
-const testCompleteWindow = document.querySelector('.test-complete-window'); //test complete window at end of game
-const goAgainBtn = document.querySelector('.go-again-button'); //go again button at end of game
+const testCompleteWindow = document.querySelector(".test-complete-window"); //test complete window at end of game
+const goAgainBtn = document.querySelector(".go-again-button"); //go again button at end of game
 const passageWindow = document.querySelector(".passage"); //Passage container
-const wpm = document.getElementById('wpm'); //wpm counter
-const accuracy = document.getElementById('accuracy'); //accuracy counter
-const time = document.getElementById('time');
+const wpm = document.getElementById("wpm"); //wpm counter
+const accuracy = document.getElementById("accuracy"); //accuracy counter
+const time = document.getElementById("time");
 const difficultyToggles = document.querySelectorAll(".difficulty-toggle"); //
 const modeToggles = document.querySelectorAll(".mode-toggle");
 
@@ -23,10 +28,30 @@ const gameState = {
 	passageIndex: 0,
 	currentCharacter: "",
 	correctCharacters: 0,
+	passageTimer: null,
+	seconds: 0,
+	minutes: 0,
+
+	timerFunction(){
+		if (gameState.seconds < 59) {
+				gameState.seconds++;
+			} else {
+				gameState.seconds = 0;
+				gameState.minutes++;
+			}
+
+			if (gameState.seconds < 10) {
+				time.innerHTML = `${gameState.minutes}:0${gameState.seconds}`;
+			} else {
+				time.innerHTML = `${gameState.minutes}:${gameState.seconds}`;
+			}
+
+			console.log(gameState.minutes + ":" + gameState.seconds);
+	}, //this starts a timer when mode is set to passage
 
 	calculateAccuracy() {
 		let index = this.passageIndex + 1;
-		return Math.round(this.correctCharacters / index * 100) + '%';
+		return Math.round((this.correctCharacters / index) * 100) + "%";
 	}
 };
 
@@ -42,7 +67,7 @@ const selectDifficulty = (event) => {
 	difficultyToggles.forEach((toggle) => toggle.classList.remove("active")); //remove 'active' className for all toggles
 	btn.classList.add("active"); //add 'active' class name to only the toggle that was pressed
 
-	if(startTypingWindow.style.display === 'none'){
+	if (startTypingWindow.style.display === "none") {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
 	}
 };
@@ -62,7 +87,7 @@ const selectMode = (event) => {
 	modeToggles.forEach((toggle) => toggle.classList.remove("active")); //remove 'active' className for all toggles
 	btn.classList.add("active"); //add 'active' class name to only the toggle that was pressed
 
-	if(startTypingWindow.style.display === 'none'){
+	if (startTypingWindow.style.display === "none") {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
 	}
 };
@@ -78,7 +103,8 @@ const keyPress = (event) => {
 			gameState.currentCharacter.style.backgroundColor = "inherit"; //undoes highlight of previous character
 			gameState.currentCharacter.style.color = "var(--light-gray)";
 			gameState.passageIndex--; //changes passage index -1
-			gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
+			gameState.currentCharacter =
+				passageWindow.children[gameState.passageIndex]; //updates next character based on index
 			highlightCurrentCharacter(gameState.currentCharacter);
 		}
 		return;
@@ -103,21 +129,23 @@ const keyPress = (event) => {
 
 	accuracy.innerHTML = gameState.calculateAccuracy(); //updates accuracy stat with each key press
 
-	if(accuracy.innerHTML !== '100%'){
-		statsColorChange(accuracy, 'red')
+	if (accuracy.innerHTML !== "100%") {
+		statsColorChange(accuracy, "red");
 	} //changes accuracy stat to red when its below 100%
 
 	gameState.passageIndex++; //changes passage index +1 for every character input
 
-	if(gameState.passageIndex === gameState.passage.length){
+	if (gameState.passageIndex === gameState.passage.length) {
 		endGame(); //end game if they've typed in all characters
 	} else {
-		gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
+		gameState.currentCharacter =
+			passageWindow.children[gameState.passageIndex]; //updates next character based on index
 		highlightCurrentCharacter(gameState.currentCharacter); //next character is highlighted
 	}
 };
 
 //GAME START
+
 const startTyping = () => {
 	let randomIndex = Math.floor(
 		Math.random() * passages[gameState.difficulty].length,
@@ -137,32 +165,45 @@ const startTyping = () => {
 		passageWindow.appendChild(span);
 	}
 
+	//sets default time start depending on mode selection
+	if (gameState.mode === "passage") {
+		time.innerHTML = "0:00";
+		gameState.minutes = 0;
+		gameState.seconds = 0;
+		gameState.passageTimer = setInterval(gameState.timerFunction, 1000);
+	} else {
+		time.innerHTML = "1:00";
+	}
+
 	startTypingWindow.style.display = "none"; //hides start typing window, shows passage
 	gameState.characterCount = gameState.passage.length; //calculates character count
 	gameState.wordCount = gameState.passage.split(" ").length; //calculates word count
 	gameState.passageIndex = 0; //passage index resets to 0 at start of game
 	gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //sets current character to first SPAN ELEMENT in the new passage
 	highlightCurrentCharacter(gameState.currentCharacter); //highlights first character at start of game
-	statsColorChange(wpm, 'white');
-	statsColorChange(accuracy, 'green');
-	statsColorChange(time, 'yellow');
+	statsColorChange(wpm, "white");
+	statsColorChange(accuracy, "green");
+	statsColorChange(time, "yellow");
 	document.addEventListener("keydown", keyPress); //turns on event listener for key pressing once game has started
 };
 startTypingBtn.onclick = startTyping; //Clicking Start Typing button will close start typing window, set gameState properties, and show passage
 
-
 //END GAME FUNTION
 const endGame = () => {
-	testCompleteWindow.style.display = 'flex'; //results window appears
-	document.removeEventListener('keydown', keyPress); //when game is over, document stops listening for keys input
+	testCompleteWindow.style.display = "flex"; //results window appears
+	document.removeEventListener("keydown", keyPress); //when game is over, document stops listening for keys input
+	clearInterval(gameState.passageTimer);
 };
 
 //start over
 const startOver = () => {
-	testCompleteWindow.style.display = 'none';
-	startTypingWindow.style.display = 'flex';
+	testCompleteWindow.style.display = "none";
+	startTypingWindow.style.display = "flex";
+	clearInterval(gameState.passageTimer)
+	console.log(gameState.passageTimer)
 
 	let randomI = Math.floor(Math.random() * passages.medium.length);
-	document.querySelector(".passage").innerHTML = passages.medium[randomI].text; //puts random passage in the background of start typing screen
+	document.querySelector(".passage").innerHTML =
+		passages.medium[randomI].text; //puts random passage in the background of start typing screen
 };
-goAgainBtn.addEventListener('click', startOver);
+goAgainBtn.addEventListener("click", startOver);
