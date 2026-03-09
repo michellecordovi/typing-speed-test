@@ -29,6 +29,7 @@ const gameState = {
 	currentCharacter: "",
 	correctCharacters: 0,
 	passageTimer: null,
+	countdownTimer: null,
 	seconds: 0,
 	minutes: 0,
 
@@ -45,9 +46,28 @@ const gameState = {
 			} else {
 				time.innerHTML = `${gameState.minutes}:${gameState.seconds}`;
 			}
-
-			console.log(gameState.minutes + ":" + gameState.seconds);
 	}, //this starts a timer when mode is set to passage
+
+	countdown(){
+		if (gameState.minutes === 1 && gameState.seconds === 0){
+			gameState.seconds = 59;
+			gameState.minutes = 0;
+			console.log(gameState.minutes + gameState.seconds)
+		} else {
+			gameState.seconds--;
+		}
+
+
+		if (gameState.seconds < 10) {
+			time.innerHTML = `${gameState.minutes}:0${gameState.seconds}`;
+		} else {
+		time.innerHTML = `${gameState.minutes}:${gameState.seconds}`;
+		}
+
+		if (gameState.seconds === 0){
+			endGame();
+		}
+	},
 
 	calculateAccuracy() {
 		let index = this.passageIndex + 1;
@@ -173,6 +193,9 @@ const startTyping = () => {
 		gameState.passageTimer = setInterval(gameState.timerFunction, 1000);
 	} else {
 		time.innerHTML = "1:00";
+		gameState.minutes = 1;
+		gameState.seconds = 0;
+		gameState.countdownTimer = setInterval(gameState.countdown, 1000)
 	}
 
 	startTypingWindow.style.display = "none"; //hides start typing window, shows passage
@@ -200,10 +223,9 @@ const startOver = () => {
 	testCompleteWindow.style.display = "none";
 	startTypingWindow.style.display = "flex";
 	clearInterval(gameState.passageTimer)
-	console.log(gameState.passageTimer)
 
 	let randomI = Math.floor(Math.random() * passages.medium.length);
 	document.querySelector(".passage").innerHTML =
 		passages.medium[randomI].text; //puts random passage in the background of start typing screen
 };
-goAgainBtn.addEventListener("click", startOver);
+goAgainBtn.addEventListener("click", startOver); 
