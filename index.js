@@ -216,6 +216,7 @@ const endGame = () => {
 	testCompleteWindow.style.display = "flex"; //results window appears
 	document.removeEventListener("keydown", keyPress); //when game is over, document stops listening for keys input
 	clearInterval(gameState.passageTimer);
+	clearInterval(gameState.countdownTimer)
 };
 
 //start over
@@ -223,6 +224,15 @@ const startOver = () => {
 	testCompleteWindow.style.display = "none";
 	startTypingWindow.style.display = "flex";
 	clearInterval(gameState.passageTimer)
+	clearInterval(gameState.countdownTimer)
+
+	statsColorChange(wpm, "light-gray");
+	statsColorChange(accuracy, "light-gray");
+	statsColorChange(time, "light-gray");
+
+	wpm.innerHTML = '0';
+	accuracy.innerHTML = '100%';
+	time.innerHTML = '0:00'
 
 	let randomI = Math.floor(Math.random() * passages.medium.length);
 	document.querySelector(".passage").innerHTML =
