@@ -67,11 +67,22 @@ const gameState = {
 		if (gameState.seconds === 0){
 			endGame();
 		}
-	},
+	}, //this starts a count down from 60s in timed mode
 
 	calculateAccuracy() {
 		let index = this.passageIndex + 1;
 		return Math.round((this.correctCharacters / index) * 100) + "%";
+	},
+
+	calculateWPM(){
+		if(this.mode === 'passage'){
+			let minutesPassed = this.seconds / 60 + this.minutes;
+			return Math.round(this.correctCharacters / 5 / minutesPassed);
+		} else if (this.mode === 'timed'){
+			let secondsPassed = 60 - this.seconds;
+			let minutesPassed = secondsPassed / 60;
+			return  Math.round(this.correctCharacters / 5 / minutesPassed);
+		}
 	}
 };
 
@@ -148,6 +159,7 @@ const keyPress = (event) => {
 	}
 
 	accuracy.innerHTML = gameState.calculateAccuracy(); //updates accuracy stat with each key press
+	wpm.innerHTML = gameState.calculateWPM();
 
 	if (accuracy.innerHTML !== "100%") {
 		statsColorChange(accuracy, "red");
