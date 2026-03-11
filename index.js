@@ -15,6 +15,10 @@ const passageWindow = document.querySelector(".passage"); //Passage container
 const wpm = document.getElementById("wpm"); //wpm counter
 const accuracy = document.getElementById("accuracy"); //accuracy counter
 const time = document.getElementById("time");
+const wpmResult = document.querySelector('.wpm-result');
+const accuracyResult = document.querySelector('.accuracy-result');
+const correctCharacters = document.getElementById('correct-characters');
+const incorrectCharacters = document.getElementById('incorrect-characters')
 const difficultyToggles = document.querySelectorAll(".difficulty-toggle"); //
 const modeToggles = document.querySelectorAll(".mode-toggle");
 
@@ -32,6 +36,8 @@ const gameState = {
 	countdownTimer: null,
 	seconds: 0,
 	minutes: 0,
+	wpm: 0,
+	accuracy: 100,
 
 	timerFunction(){
 		if (gameState.seconds < 59) {
@@ -46,13 +52,14 @@ const gameState = {
 			} else {
 				time.innerHTML = `${gameState.minutes}:${gameState.seconds}`;
 			}
+			gameState.calculateWPM();
+			wpm.innerHTML = gameState.wpm;//WPM is calculated every second
 	}, //this starts a timer when mode is set to passage
 
 	countdown(){
 		if (gameState.minutes === 1 && gameState.seconds === 0){
 			gameState.seconds = 59;
 			gameState.minutes = 0;
-			console.log(gameState.minutes + gameState.seconds)
 		} else {
 			gameState.seconds--;
 		}
@@ -67,21 +74,23 @@ const gameState = {
 		if (gameState.seconds === 0){
 			endGame();
 		}
+		gameState.calculateWPM();
+		wpm.innerHTML = gameState.wpm;//WPM is calculated every second
 	}, //this starts a count down from 60s in timed mode
 
 	calculateAccuracy() {
 		let index = this.passageIndex + 1;
-		return Math.round((this.correctCharacters / index) * 100) + "%";
+		this.accuracy =  Math.round((this.correctCharacters / index) * 100) + "%";
 	},
 
 	calculateWPM(){
 		if(this.mode === 'passage'){
 			let minutesPassed = this.seconds / 60 + this.minutes;
-			return Math.round(this.correctCharacters / 5 / minutesPassed);
+			this.wpm =  Math.round(this.correctCharacters / 5 / minutesPassed);
 		} else if (this.mode === 'timed'){
 			let secondsPassed = 60 - this.seconds;
 			let minutesPassed = secondsPassed / 60;
-			return  Math.round(this.correctCharacters / 5 / minutesPassed);
+			this.wpm =   Math.round(this.correctCharacters / 5 / minutesPassed);
 		}
 	}
 };
@@ -158,8 +167,8 @@ const keyPress = (event) => {
 		turnCharacterRed(gameState.currentCharacter); //incorrect input turns red
 	}
 
-	accuracy.innerHTML = gameState.calculateAccuracy(); //updates accuracy stat with each key press
-	wpm.innerHTML = gameState.calculateWPM();
+	gameState.calculateAccuracy();
+	accuracy.innerHTML = gameState.accuracy; //updates accuracy stat with each key press
 
 	if (accuracy.innerHTML !== "100%") {
 		statsColorChange(accuracy, "red");
@@ -229,12 +238,19 @@ const endGame = () => {
 	document.removeEventListener("keydown", keyPress); //when game is over, document stops listening for keys input
 	clearInterval(gameState.passageTimer);
 	clearInterval(gameState.countdownTimer)
+
+	//results
+	wpmResult.innerHTML = gameState.wpm;
+	accuracyResult.innerHTML = gameState.accuracy;
+	correctCharacters.innerHTML = gameState.correctCharacters;
+	incorrectCharacters.innerHTML = gameState.characterCount - gameState.correctCharacters;
 };
 
 //start over
 const startOver = () => {
 	testCompleteWindow.style.display = "none";
 	startTypingWindow.style.display = "flex";
+	gameState.correctCharacters = 0;
 	clearInterval(gameState.passageTimer)
 	clearInterval(gameState.countdownTimer)
 
