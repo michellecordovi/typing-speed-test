@@ -129,17 +129,6 @@ const selectMode = (event) => {
 	modeToggles.forEach((toggle) => toggle.classList.remove("active")); //remove 'active' className for all toggles
 	btn.classList.add("active"); //add 'active' class name to only the toggle that was pressed
 
-	//sets default time start depending on mode selection
-	if (gameState.mode === "passage") {
-		time.innerHTML = "0:00";
-		gameState.minutes = 0;
-		gameState.seconds = 0;
-	} else {
-		time.innerHTML = "1:00";
-		gameState.minutes = 1;
-		gameState.seconds = 0;
-	}
-
 	if (startTypingWindow.style.display === "none") {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
 	}
