@@ -169,7 +169,7 @@ header{
 /* PASSAGE */
 .passage-box{
     width: 100%;
-    height: fit-content;
+    min-height: 540px;
     padding: 32px 0px 64px;
     border-bottom: 1px solid var(--light-black);
     position: relative;
