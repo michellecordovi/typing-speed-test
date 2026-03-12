@@ -47,7 +47,7 @@ header{
     display: flex;
     margin-bottom: 64px;
 
-    .personal-best{
+    .personal-best-container{
         display: flex;
         justify-content: flex-end;
         width: 100%;
@@ -61,6 +61,10 @@ header{
         p{
             width: fit-content;
             font-size: 18px;
+        }
+
+        #personal-best{
+            margin-left: 8px;
         }
     }
 }

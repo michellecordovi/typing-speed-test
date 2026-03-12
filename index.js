@@ -21,6 +21,7 @@ const correctCharacters = document.getElementById('correct-characters');
 const incorrectCharacters = document.getElementById('incorrect-characters')
 const difficultyToggles = document.querySelectorAll(".difficulty-toggle"); //
 const modeToggles = document.querySelectorAll(".mode-toggle");
+const personalBestResult = document.getElementById('personal-best')
 
 //GAME VARIABLES
 const gameState = {
@@ -38,6 +39,7 @@ const gameState = {
 	minutes: 0,
 	wpm: 0,
 	accuracy: 100,
+	personalBest: null,
 
 	timerFunction(){
 		if (gameState.seconds < 59) {
@@ -238,6 +240,16 @@ const endGame = () => {
 	document.removeEventListener("keydown", keyPress); //when game is over, document stops listening for keys input
 	clearInterval(gameState.passageTimer);
 	clearInterval(gameState.countdownTimer)
+
+	if (!localStorage.personalBest){
+		localStorage.setItem('personalBest', gameState.wpm)
+		gameState.personalBest = gameState.wpm;
+		personalBestResult.innerHTML = ' ' + gameState.personalBest + ' WPM'
+	} else if(localStorage.personalBest < gameState.wpm){
+		localStorage.personalBest = gameState.wpm;
+		gameState.personalBest = gameState.wpm;
+		personalBestResult.innerHTML = ' ' + gameState.personalBest + ' WPM'
+	} 
 
 	//results
 	wpmResult.innerHTML = gameState.wpm;
