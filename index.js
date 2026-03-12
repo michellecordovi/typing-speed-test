@@ -66,18 +66,18 @@ const gameState = {
 			gameState.seconds--;
 		}
 
-
 		if (gameState.seconds < 10) {
 			time.innerHTML = `${gameState.minutes}:0${gameState.seconds}`;
 		} else {
 		time.innerHTML = `${gameState.minutes}:${gameState.seconds}`;
 		}
 
+		gameState.calculateWPM();
+		wpm.innerHTML = gameState.wpm;//WPM is calculated every second
+
 		if (gameState.seconds === 0){
 			endGame();
 		}
-		gameState.calculateWPM();
-		wpm.innerHTML = gameState.wpm;//WPM is calculated every second
 	}, //this starts a count down from 60s in timed mode
 
 	calculateAccuracy() {
@@ -221,8 +221,14 @@ const startTyping = () => {
 
 	//turns on timer depending on mode
 	if (gameState.mode === "passage") {
+		time.innerHTML = "0:00";
+		gameState.minutes = 0;
+		gameState.seconds = 0;
 		gameState.passageTimer = setInterval(gameState.timerFunction, 1000);
 	} else {
+		time.innerHTML = "1:00";
+		gameState.minutes = 1;
+		gameState.seconds = 0;
 		gameState.countdownTimer = setInterval(gameState.countdown, 1000)
 	}
 
