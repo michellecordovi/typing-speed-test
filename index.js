@@ -257,15 +257,15 @@ const endGame = () => {
 	//results
 	wpmResult.innerHTML = gameState.wpm;
 	accuracyResult.innerHTML = gameState.accuracy;
-	correctCharacters.innerHTML = gameState.correctCharacters;
-	incorrectCharacters.innerHTML = gameState.characterCount - gameState.correctCharacters;
+	correctCharacters.innerHTML = gameState.correctCharacters.length;
+	incorrectCharacters.innerHTML = gameState.characterCount - gameState.correctCharacters.length;
 };
 
 //start over
 const startOver = () => {
 	testCompleteWindow.style.display = "none";
 	startTypingWindow.style.display = "flex";
-	gameState.correctCharacters = 0;
+	gameState.correctCharacters = [];
 	clearInterval(gameState.passageTimer)
 	clearInterval(gameState.countdownTimer)
 
