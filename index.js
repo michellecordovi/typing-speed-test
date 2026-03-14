@@ -39,7 +39,7 @@ const gameState = {
 	minutes: 0,
 	wpm: 0,
 	accuracy: 100,
-	personalBest: null,
+	personalBest: 0,
 
 	timerFunction(){
 		if (gameState.seconds < 59) {
@@ -247,11 +247,11 @@ const endGame = () => {
 	if (!localStorage.personalBest){
 		localStorage.setItem('personalBest', gameState.wpm)
 		gameState.personalBest = gameState.wpm;
-		personalBestResult.innerHTML = ' ' + gameState.personalBest + ' WPM'
+		personalBestResult.innerHTML = gameState.personalBest + ' WPM'
 	} else if(localStorage.personalBest < gameState.wpm){
 		localStorage.personalBest = gameState.wpm;
 		gameState.personalBest = gameState.wpm;
-		personalBestResult.innerHTML = ' ' + gameState.personalBest + ' WPM'
+		personalBestResult.innerHTML = gameState.personalBest + ' WPM'
 	} 
 
 	//results
@@ -261,6 +261,15 @@ const endGame = () => {
 	incorrectCharacters.innerHTML = gameState.characterCount - gameState.correctCharacters.length;
 };
 
+//loads your previous personal best from local storage
+ window.addEventListener('load', () => {
+	if (localStorage.personalBest){
+		gameState.personalBest = localStorage.personalBest;
+		personalBestResult.innerHTML = gameState.personalBest + ' WPM'
+	}
+ });
+
+ 
 //start over
 const startOver = () => {
 	testCompleteWindow.style.display = "none";
