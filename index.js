@@ -32,7 +32,7 @@ const gameState = {
 	wordCount: 0,
 	passageIndex: 0,
 	currentCharacter: "",
-	correctCharacters: 0,
+	correctCharacters: [],
 	passageTimer: null,
 	countdownTimer: null,
 	seconds: 0,
@@ -49,11 +49,8 @@ const gameState = {
 				gameState.minutes++;
 			}
 
-			if (gameState.seconds < 10) {
-				time.innerHTML = `${gameState.minutes}:0${gameState.seconds}`;
-			} else {
-				time.innerHTML = `${gameState.minutes}:${gameState.seconds}`;
-			}
+			gameState.seconds < 10 ? time.innerHTML = `${gameState.minutes}:0${gameState.seconds}` : time.innerHTML = `${gameState.minutes}:${gameState.seconds}`;
+	
 			gameState.calculateWPM();
 			wpm.innerHTML = gameState.wpm;//WPM is calculated every second
 	}, //this starts a timer when mode is set to passage
@@ -66,12 +63,8 @@ const gameState = {
 			gameState.seconds--;
 		}
 
-		if (gameState.seconds < 10) {
-			time.innerHTML = `${gameState.minutes}:0${gameState.seconds}`;
-		} else {
-		time.innerHTML = `${gameState.minutes}:${gameState.seconds}`;
-		}
-
+		gameState.seconds < 10 ? time.innerHTML = `${gameState.minutes}:0${gameState.seconds}`: time.innerHTML = `${gameState.minutes}:${gameState.seconds}`;
+		
 		gameState.calculateWPM();
 		wpm.innerHTML = gameState.wpm;//WPM is calculated every second
 
@@ -82,17 +75,17 @@ const gameState = {
 
 	calculateAccuracy() {
 		let index = this.passageIndex + 1;
-		this.accuracy =  Math.round((this.correctCharacters / index) * 100) + "%";
+		this.accuracy =  Math.round((this.correctCharacters.length / index) * 100) + "%";
 	},
 
 	calculateWPM(){
 		if(this.mode === 'passage'){
 			let minutesPassed = this.seconds / 60 + this.minutes;
-			this.wpm =  Math.round(this.correctCharacters / 5 / minutesPassed);
+			this.wpm =  Math.round(this.correctCharacters.length / 5 / minutesPassed);
 		} else if (this.mode === 'timed'){
 			let secondsPassed = 60 - this.seconds;
 			let minutesPassed = secondsPassed / 60;
-			this.wpm =   Math.round(this.correctCharacters / 5 / minutesPassed);
+			this.wpm =   Math.round(this.correctCharacters.length / 5 / minutesPassed);
 		}
 	}
 };
@@ -138,15 +131,19 @@ modeToggles.forEach((toggle) => toggle.addEventListener("click", selectMode));
 //KEY PRESS EVENT LISTENER
 const keyPress = (event) => {
 	event.preventDefault(); //prevent default behavior of typing keys, including spacebar
-
+	
 	// Block control keys and only allow printable characters, except backspace/delete
 	if (event.key === "Backspace" || event.key === "Delete") {
 		if (gameState.passageIndex > 0) {
+			//if they backspace over a previously correct character, it will be removed from the correct character array
+			if(gameState.correctCharacters.includes(gameState.currentCharacter.dataset.id)){
+				let index = gameState.correctCharacters.indexOf(gameState.currentCharacter.dataset.id)
+				gameState.correctCharacters.splice(index, 1)
+			};
 			gameState.currentCharacter.style.backgroundColor = "inherit"; //undoes highlight of previous character
 			gameState.currentCharacter.style.color = "var(--light-gray)";
 			gameState.passageIndex--; //changes passage index -1
-			gameState.currentCharacter =
-				passageWindow.children[gameState.passageIndex]; //updates next character based on index
+			gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
 			highlightCurrentCharacter(gameState.currentCharacter);
 		}
 		return;
@@ -160,31 +157,37 @@ const keyPress = (event) => {
 	};
 
 	const typedChar = normalizeChar(event.key);
-	const expectedChar = normalizeChar(gameState.currentCharacter.dataset.char);
+	const expectedChar = normalizeChar(gameState.currentCharacter.innerHTML);
 
 	if (typedChar === expectedChar) {
-		gameState.correctCharacters++; //increase correct characters entered
+		if(!gameState.correctCharacters.includes(gameState.currentCharacter.dataset.id)){
+			gameState.correctCharacters.push(gameState.currentCharacter.dataset.id); //increase correct characters entered
+		}
 		turnCharacterGreen(gameState.currentCharacter); //correct input turns green
+		console.log(gameState.correctCharacters)
 	} else if (typedChar !== expectedChar) {
+		//if you backspace over a correct character, but input it wrong, it is removed from correct characters array
+			if(gameState.correctCharacters.includes(gameState.currentCharacter.dataset.id)){
+				let index = gameState.correctCharacters.indexOf(gameState.currentCharacter.dataset.id)
+				gameState.correctCharacters.splice(index, 1)
+			};
 		turnCharacterRed(gameState.currentCharacter); //incorrect input turns red
 	}
 
 	gameState.calculateAccuracy();
 	accuracy.innerHTML = gameState.accuracy; //updates accuracy stat with each key press
 
-	if (accuracy.innerHTML !== "100%") {
-		statsColorChange(accuracy, "red");
-	} //changes accuracy stat to red when its below 100%
+	accuracy.innerHTML !== "100%" ? statsColorChange(accuracy, "red"): statsColorChange(accuracy, "green"); //changes accuracy stat to red when its below 100% and back to green if it goes back up to 100%
 
 	gameState.passageIndex++; //changes passage index +1 for every character input
 
 	if (gameState.passageIndex === gameState.passage.length) {
 		endGame(); //end game if they've typed in all characters
 	} else {
-		gameState.currentCharacter =
-			passageWindow.children[gameState.passageIndex]; //updates next character based on index
+		gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
 		highlightCurrentCharacter(gameState.currentCharacter); //next character is highlighted
 	}
+	
 };
 
 //GAME START
@@ -204,7 +207,7 @@ const startTyping = () => {
 		span = document.createElement("span");
 		span.classList.add("passage-char");
 		span.innerHTML = gameState.passage[i];
-		span.setAttribute("data-char", gameState.passage[i]);
+		span.setAttribute("data-id", i);
 		passageWindow.appendChild(span);
 	}
 
