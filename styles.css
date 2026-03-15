@@ -247,7 +247,11 @@ header{
         }
 
         input{
-            display: none;
+            position: absolute; 
+            left: -9999px; 
+            opacity: 0; 
+            height: 0; 
+            width: 0;
         }
     }
 }
