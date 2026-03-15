@@ -220,10 +220,10 @@ header {
 	}
 
 	#mobile-keyboard-trigger {
-		position: absolute;
-		height: 0px;
-        width:0px;
-	}
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
 
 	.start-typing-window {
 		backdrop-filter: blur(10px);

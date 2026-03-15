@@ -234,10 +234,12 @@ const startTyping = () => {
 	statsColorChange(wpm, "white");
 	statsColorChange(accuracy, "green");
 	statsColorChange(time, "yellow");
-	mobileKeyboardTrigger.focus();
 	document.addEventListener("keydown", keyPress); //turns on event listener for key pressing once game has started
 };
-startTypingBtn.onclick = startTyping; //Clicking Start Typing button will close start typing window, set gameState properties, and show passage
+startTypingBtn.onclick = (e) => {
+	startTyping();
+	mobileKeyboardTrigger.focus();
+};//Clicking Start Typing button will close start typing window, set gameState properties, and show passage
 
 //END GAME FUNTION
 const endGame = () => {
