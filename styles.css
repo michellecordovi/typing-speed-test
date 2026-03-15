@@ -42,10 +42,24 @@ button {
     cursor: pointer;
 }
 
+@media only screen and (max-width: 760px){
+   body{
+        padding: 32px 32px;
+   }
+}
+
 /* HEADER */
 header{
     display: flex;
     margin-bottom: 64px;
+
+    #desktop-logo {
+		display: block;
+	}
+
+	#mobile-logo {
+		display: none;
+	}
 
     .personal-best-container{
         display: flex;
@@ -67,6 +81,21 @@ header{
             margin-left: 8px;
         }
     }
+}
+
+
+@media only screen and (max-width: 760px){
+   header{
+    margin-bottom: 32px;
+
+    #desktop-logo{
+        display: none;
+    }
+
+    #mobile-logo{
+        display: block;
+    }
+   }
 }
 
 
@@ -165,6 +194,12 @@ header{
     }
 }
 
+@media only screen and (max-width: 760px){
+  .stats-bar{
+    flex-direction: column;
+    align-items: center;
+  }
+}
 
 /* PASSAGE */
 .passage-box{
@@ -211,6 +246,19 @@ header{
             border-radius: 12px;
         }
     }
+}
+
+@media only screen and (max-width: 760px){
+  .passage-box{
+    .passage{
+        font-size: 32px;
+    }
+
+    .start-typing-window{
+        justify-content: start;
+        padding-top: 120px;
+    }
+  }
 }
 
 /* TEST COMPLETE WINDOW*/
