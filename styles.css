@@ -222,8 +222,6 @@ header {
 	#mobile-keyboard-trigger {
 		display: block;
 		position: absolute;
-		overflow: hidden;
-		opacity: 0px;
 		height: 16px;
         visibility: hidden;
 	}
