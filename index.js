@@ -9,6 +9,7 @@ import {
 //DOCUMENT POINTER VARIABLES
 const startTypingWindow = document.querySelector(".start-typing-window"); //Start Typing window
 const startTypingBtn = document.querySelector(".start-typing-button"); //Start Typing button
+const mobileKeyboardTrigger = document.getElementById('mobile-keyboard-trigger');
 const testCompleteWindow = document.querySelector(".test-complete-window"); //test complete window at end of game
 const goAgainBtn = document.querySelector(".go-again-button"); //go again button at end of game
 const passageWindow = document.querySelector(".passage"); //Passage container
@@ -233,6 +234,7 @@ const startTyping = () => {
 	statsColorChange(wpm, "white");
 	statsColorChange(accuracy, "green");
 	statsColorChange(time, "yellow");
+	mobileKeyboardTrigger.focus();
 	document.addEventListener("keydown", keyPress); //turns on event listener for key pressing once game has started
 };
 startTypingBtn.onclick = startTyping; //Clicking Start Typing button will close start typing window, set gameState properties, and show passage
@@ -242,7 +244,8 @@ const endGame = () => {
 	testCompleteWindow.style.display = "flex"; //results window appears
 	document.removeEventListener("keydown", keyPress); //when game is over, document stops listening for keys input
 	clearInterval(gameState.passageTimer);
-	clearInterval(gameState.countdownTimer)
+	clearInterval(gameState.countdownTimer);
+	mobileKeyboardTrigger.blur();
 
 	if (!localStorage.personalBest){
 		localStorage.setItem('personalBest', gameState.wpm)
@@ -277,6 +280,8 @@ const startOver = () => {
 	gameState.correctCharacters = [];
 	clearInterval(gameState.passageTimer)
 	clearInterval(gameState.countdownTimer)
+
+	mobileKeyboardTrigger.blur();
 
 	statsColorChange(wpm, "light-gray");
 	statsColorChange(accuracy, "light-gray");
