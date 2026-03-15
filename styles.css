@@ -220,10 +220,9 @@ header {
 	}
 
 	#mobile-keyboard-trigger {
-		display: block;
 		position: absolute;
-		height: 16px;
-        visibility: hidden;
+		height: 0px;
+        width:0px;
 	}
 
 	.start-typing-window {
