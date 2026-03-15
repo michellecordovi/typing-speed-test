@@ -202,10 +202,12 @@ header {
 /* PASSAGE */
 .passage-box {
 	width: 100%;
+    max-width: 100%;
 	min-height: 540px;
 	padding: 32px 0px 64px;
 	border-bottom: 1px solid var(--light-black);
 	position: relative;
+    overflow:hidden;
 
 	.passage,
 	.passage span {
@@ -223,7 +225,7 @@ header {
 		display: block;
 		position: absolute;
 		left: 1000px;
-		overflow: hidden();
+		overflow: hidden;
 		opacity: 0px;
 		height: 16px;
 	}
