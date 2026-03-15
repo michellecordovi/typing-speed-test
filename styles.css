@@ -247,7 +247,12 @@ header{
         }
 
         input{
-            display: none;
+            display: block;
+            position: absolute;
+            left: 1000px;
+            overflow: hidden();
+            opacity: 0px;
+            height: 16px;
         }
     }
 }
