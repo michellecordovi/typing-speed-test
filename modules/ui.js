@@ -12,7 +12,7 @@ const highlightCurrentCharacter = (character) => {
 	character.style.borderRadius = '2px'
 
 	character.scrollIntoView({
-		block: "center",
+		block: "nearest",
 		inline: "nearest",
 		behavior: "smooth"
 	});
