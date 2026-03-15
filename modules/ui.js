@@ -10,6 +10,12 @@ const highlightCurrentCharacter = (character) => {
 	character.style.color = "var(--white)";
 	character.style.textDecoration = "none";
 	character.style.borderRadius = '2px'
+
+	character.scrollIntoView({
+		block: "center",
+		inline: "nearest",
+		behavior: "smooth"
+	});
 };
 
 //make function to turn a character green if correctly input (this should remove the background from when it was highlighted as the current character)
