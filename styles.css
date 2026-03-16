@@ -107,88 +107,87 @@ header {
 	justify-content: space-between;
 	flex-wrap: wrap;
 	row-gap: 20px;
+}
 
-	.stats {
-		display: grid;
-		grid-template-columns: auto auto auto;
-		justify-content: start;
+.stats {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	justify-content: start;
+	align-items: center;
+	margin-right: 64px;
+
+	p {
+		display: flex;
 		align-items: center;
-		margin-right: 64px;
+		gap: 6px;
+		font-size: 20px;
+	}
+	p span {
+		font-size: 24px;
+		font-weight: bold;
+		line-height: 100%;
+	}
+}
+.wpm-stat-box {
+	padding-right: 24px;
+}
 
-		.wpm-stat-box {
-			padding-right: 24px;
-		}
+.accuracy-stat-box {
+	padding: 0px 24px;
+	border-left: 1px solid var(--dark-gray);
+	border-right: 1px solid var(--dark-gray);
+}
 
-		.accuracy-stat-box {
-			padding: 0px 24px;
-			border-left: 1px solid var(--dark-gray);
-			border-right: 1px solid var(--dark-gray);
-		}
+.time-stat-box {
+	padding-left: 24px;
+}
 
-		.time-stat-box {
-			padding-left: 24px;
-		}
+.desktop-toggles {
+	display: flex;
+	justify-self: end;
+}
 
-		p {
-			display: flex;
-			align-items: center;
-			gap: 6px;
-			font-size: 20px;
-		}
-		p span {
-			font-size: 24px;
-			font-weight: bold;
-			line-height: 100%;
-		}
+.toggle {
+	padding: 6px 10px;
+	border-radius: 8px;
+	background-color: transparent;
+	color: var(--white);
+	border: 1px solid var(--dark-gray);
+	cursor: pointer;
+}
+
+.toggle:hover,
+.active {
+	color: var(--light-blue);
+	border: 1px solid var(--light-blue);
+}
+
+.difficulty-toggles-section {
+	display: flex;
+	align-items: center;
+	padding-right: 16px;
+
+	p {
+		margin-right: 14px;
 	}
 
-	.toggles {
-		display: flex;
-		justify-self: end;
+	.medium-toggle {
+		margin: 0px 6px;
+	}
+}
 
-		.toggle {
-			padding: 6px 10px;
-			border-radius: 8px;
-			background-color: transparent;
-			color: var(--white);
-			border: 1px solid var(--dark-gray);
-			cursor: pointer;
-		}
+.mode-toggles {
+	display: flex;
+	align-items: center;
+	padding-left: 16px;
+	border-left: 1px solid var(--dark-gray);
 
-		.toggle:hover,
-		.active {
-			color: var(--light-blue);
-			border: 1px solid var(--light-blue);
-		}
+	p {
+		margin-right: 6px;
+	}
 
-		.difficulty-toggles-section {
-			display: flex;
-			align-items: center;
-			padding-right: 16px;
-
-			p {
-				margin-right: 14px;
-			}
-
-			.medium-toggle {
-				margin: 0px 6px;
-			}
-		}
-
-		.mode-toggles {
-			display: flex;
-			align-items: center;
-			padding-left: 16px;
-			border-left: 1px solid var(--dark-gray);
-
-			p {
-				margin-right: 6px;
-			}
-
-			.timed-toggle {
-				margin: 0px 6px;
-			}
-		}
+	.timed-toggle {
+		margin: 0px 6px;
 	}
 }
 
@@ -220,11 +219,11 @@ header {
 	}
 
 	#mobile-keyboard-trigger {
-        position: absolute;
-        opacity: 0;
-        width: 1px;
-        height: 1px;
-    }
+		position: absolute;
+		opacity: 0;
+		width: 1px;
+		height: 1px;
+	}
 
 	.start-typing-window {
 		backdrop-filter: blur(10px);

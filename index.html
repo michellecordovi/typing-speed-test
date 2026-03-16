@@ -78,7 +78,7 @@
 				</div>
 
 				<!-- DIFFICULTY AND MODE TOGGLES -->
-				<div class="toggles">
+				<div class="desktop-toggles">
 					<div class="difficulty-toggles-section">
 						<p>Difficulty:</p>
 						<button
@@ -117,6 +117,44 @@
 						</button>
 					</div>
 				</div>
+
+        <div class="mobile-toggles">
+
+          <!-- Difficulty mobile menu -->
+          <div class="difficulty-menu">
+            <button class="toggle">
+              <span>Hard</span>
+              <img src="./assets/images/icon-down-arrow.svg" alt="">
+            </button>
+
+            <div class="difficulty-radio-buttons">
+              <input type="radio" id="hard" name="difficulty" value="hard">
+              <label>Hard</label>
+
+              <input type="radio" id="medium" name="difficulty" value="medium">
+              <label>Medium</label>
+
+              <input type="radio" id="easy" name="difficulty" value="easy">
+              <label>Easy</label>
+            </div>
+          </div>
+
+          <!-- Mode mobile menu -->
+           <div class="mode-menu">
+            <button class="toggle">
+              <span>Timed(60s)</span>
+              <img src="./assets/images/icon-down-arrow.svg" alt="">
+            </button>
+
+            <div class="mode-radio-buttons">
+              <input type="radio" id="timed" name="mode" value="timed">
+              <label>Timed</label>
+
+              <input type="radio" id="passage" name="mode" value="passage">
+              <label>Passage</label>
+            </div>
+          </div>
+        </div>
 			</section>
 
 			<!-- PASSAGE TEXT BOX -->
