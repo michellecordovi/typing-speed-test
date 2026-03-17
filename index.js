@@ -9,7 +9,9 @@ import {
 //DOCUMENT POINTER VARIABLES
 const startTypingWindow = document.querySelector(".start-typing-window"); //Start Typing window
 const startTypingBtn = document.querySelector(".start-typing-button"); //Start Typing button
-const mobileKeyboardTrigger = document.getElementById('mobile-keyboard-trigger');
+const mobileKeyboardTrigger = document.getElementById(
+	"mobile-keyboard-trigger",
+);
 const testCompleteWindow = document.querySelector(".test-complete-window"); //test complete window at end of game
 const goAgainBtn = document.querySelector(".go-again-button"); //go again button at end of game
 const passageWindow = document.querySelector(".passage"); //Passage container
@@ -19,26 +21,34 @@ const wpm = document.getElementById("wpm"); //wpm counter
 const accuracy = document.getElementById("accuracy"); //accuracy counter
 const time = document.getElementById("time");
 
-//RESULTS 
-const wpmResult = document.querySelector('.wpm-result');
-const accuracyResult = document.querySelector('.accuracy-result');
-const correctCharacters = document.getElementById('correct-characters');
-const incorrectCharacters = document.getElementById('incorrect-characters')
+//RESULTS
+const wpmResult = document.querySelector(".wpm-result");
+const accuracyResult = document.querySelector(".accuracy-result");
+const correctCharacters = document.getElementById("correct-characters");
+const incorrectCharacters = document.getElementById("incorrect-characters");
 
 //GAME SETTINGS
-const difficultyToggles = document.querySelectorAll(".difficulty-toggle"); 
-const mobileDifficultyButton = document.querySelector('.mobile-difficulty-toggle');
-const mobileDifficultyMenu = document.querySelector('.difficulty-radio-buttons');
-const mobileDifficultySelectors = document.querySelectorAll('.difficulty-radio-button');
-const mobileDifficultyDisplay = document.querySelector('.mobile-difficulty-display');
+const difficultyToggles = document.querySelectorAll(".difficulty-toggle");
+const mobileDifficultyButton = document.querySelector(
+	".mobile-difficulty-toggle",
+);
+const mobileDifficultyMenu = document.querySelector(
+	".difficulty-radio-buttons",
+);
+const mobileDifficultySelectors = document.querySelectorAll(
+	".difficulty-radio-button",
+);
+const mobileDifficultyDisplay = document.querySelector(
+	".mobile-difficulty-display",
+);
 
-const mobileModeButton = document.querySelector('.mobile-mode-toggle');
-const mobileModeSelectors = document.querySelectorAll('.mode-radio-button');
-const mobileModeMenu = document.querySelector('.mode-radio-buttons');
-const mobileModeDisplay = document.querySelector('.mobile-mode-display')
+const mobileModeButton = document.querySelector(".mobile-mode-toggle");
+const mobileModeSelectors = document.querySelectorAll(".mode-radio-button");
+const mobileModeMenu = document.querySelector(".mode-radio-buttons");
+const mobileModeDisplay = document.querySelector(".mobile-mode-display");
 const modeToggles = document.querySelectorAll(".mode-toggle");
 
-const personalBestResult = document.getElementById('personal-best')
+const personalBestResult = document.getElementById("personal-best");
 
 //GAME VARIABLES
 const gameState = {
@@ -58,62 +68,75 @@ const gameState = {
 	accuracy: 100,
 	personalBest: 0,
 
-	timerFunction(){
+	timerFunction() {
 		if (gameState.seconds < 59) {
-				gameState.seconds++;
-			} else {
-				gameState.seconds = 0;
-				gameState.minutes++;
-			}
+			gameState.seconds++;
+		} else {
+			gameState.seconds = 0;
+			gameState.minutes++;
+		}
 
-			gameState.seconds < 10 ? time.textContent = `${gameState.minutes}:0${gameState.seconds}` : time.textContent = `${gameState.minutes}:${gameState.seconds}`;
-	
-			gameState.calculateWPM();
-			wpm.textContent = gameState.wpm;//WPM is calculated every second
+		gameState.seconds < 10
+			? (time.textContent = `${gameState.minutes}:0${gameState.seconds}`)
+			: (time.textContent = `${gameState.minutes}:${gameState.seconds}`);
+
+		gameState.calculateWPM();
+		wpm.textContent = gameState.wpm; //WPM is calculated every second
 	}, //this starts a timer when mode is set to passage
 
-	countdown(){
-		if (gameState.minutes === 1 && gameState.seconds === 0){
+	countdown() {
+		if (gameState.minutes === 1 && gameState.seconds === 0) {
 			gameState.seconds = 59;
 			gameState.minutes = 0;
 		} else {
 			gameState.seconds--;
 		}
 
-		gameState.seconds < 10 ? time.textContent = `${gameState.minutes}:0${gameState.seconds}`: time.textContent = `${gameState.minutes}:${gameState.seconds}`;
-		
-		gameState.calculateWPM();
-		wpm.textContent = gameState.wpm;//WPM is calculated every second
+		gameState.seconds < 10
+			? (time.textContent = `${gameState.minutes}:0${gameState.seconds}`)
+			: (time.textContent = `${gameState.minutes}:${gameState.seconds}`);
 
-		if (gameState.seconds === 0){
+		gameState.calculateWPM();
+		wpm.textContent = gameState.wpm; //WPM is calculated every second
+
+		if (gameState.seconds === 0) {
 			endGame();
 		}
 	}, //this starts a count down from 60s in timed mode
 
 	calculateAccuracy() {
 		let index = this.passageIndex + 1;
-		this.accuracy =  Math.round((this.correctCharacters.length / index) * 100) + "%";
+		this.accuracy =
+			Math.round((this.correctCharacters.length / index) * 100) + "%";
 	},
 
-	calculateWPM(){
-		if(this.mode === 'passage'){
+	calculateWPM() {
+		if (this.mode === "passage") {
 			let minutesPassed = this.seconds / 60 + this.minutes;
-			this.wpm =  Math.round(this.correctCharacters.length / 5 / minutesPassed);
-		} else if (this.mode === 'timed'){
+			this.wpm = Math.round(
+				this.correctCharacters.length / 5 / minutesPassed,
+			);
+		} else if (this.mode === "timed") {
 			let secondsPassed = 60 - this.seconds;
 			let minutesPassed = secondsPassed / 60;
-			this.wpm =   Math.round(this.correctCharacters.length / 5 / minutesPassed);
+			this.wpm = Math.round(
+				this.correctCharacters.length / 5 / minutesPassed,
+			);
 		}
-	}
+	},
 };
 
 //TOGGLE DIFFICULTY
 const toggleDifficultyMenu = () => {
-	mobileDifficultyMenu.style.display !== 'flex' ? mobileDifficultyMenu.style.display = 'flex' : mobileDifficultyMenu.style.display = 'none';
-}
+	mobileDifficultyMenu.style.display !== "flex"
+		? (mobileDifficultyMenu.style.display = "flex")
+		: (mobileDifficultyMenu.style.display = "none");
+};
 
-mobileDifficultyButton.addEventListener('click', toggleDifficultyMenu);
-mobileDifficultySelectors.forEach((toggle) => toggle.addEventListener('change', toggleDifficultyMenu));
+mobileDifficultyButton.addEventListener("click", toggleDifficultyMenu);
+mobileDifficultySelectors.forEach((toggle) =>
+	toggle.addEventListener("change", toggleDifficultyMenu),
+);
 
 const selectDifficulty = (event) => {
 	let btn = event.target;
@@ -124,33 +147,45 @@ const selectDifficulty = (event) => {
 	gameState.difficulty = selectedDifficulty; //update difficulty based on selection
 
 	difficultyToggles.forEach((toggle) => toggle.classList.remove("active")); //remove 'active' className for all toggles
-	document.querySelector(`.${gameState.difficulty}-toggle`).classList.add('active');
+	document
+		.querySelector(`.${gameState.difficulty}-toggle`)
+		.classList.add("active");
 	//btn.classList.add("active"); //add 'active' class name to only the toggle that was pressed
 
-	function capitalizeFirstLetter(input){
+	function capitalizeFirstLetter(input) {
 		let word = input;
-		word = word.split('');
+		word = word.split("");
 		word[0] = word[0].toUpperCase();
-		word = word.join('');
-    	return word;
+		word = word.join("");
+		return word;
 	}
 
-	mobileDifficultyDisplay.textContent = capitalizeFirstLetter(gameState.difficulty)
+	mobileDifficultyDisplay.textContent = capitalizeFirstLetter(
+		gameState.difficulty,
+	);
 
 	if (startTypingWindow.style.display === "none") {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
 	}
-	console.log(gameState.difficulty)
+	console.log(gameState.difficulty);
 };
-difficultyToggles.forEach((toggle) => toggle.addEventListener("click", selectDifficulty));
-mobileDifficultySelectors.forEach((toggle) => toggle.addEventListener('click', selectDifficulty));
+difficultyToggles.forEach((toggle) =>
+	toggle.addEventListener("click", selectDifficulty),
+);
+mobileDifficultySelectors.forEach((toggle) =>
+	toggle.addEventListener("click", selectDifficulty),
+);
 
 //TOGGLE MODE
 const toggleModeMenu = () => {
-	mobileModeMenu.style.display !== 'flex' ? mobileModeMenu.style.display = 'flex' : mobileModeMenu.style.display = 'none';
-}
-mobileModeButton.addEventListener('click', toggleModeMenu);
-mobileModeSelectors.forEach((toggle) => toggle.addEventListener('click', toggleModeMenu));
+	mobileModeMenu.style.display !== "flex"
+		? (mobileModeMenu.style.display = "flex")
+		: (mobileModeMenu.style.display = "none");
+};
+mobileModeButton.addEventListener("click", toggleModeMenu);
+mobileModeSelectors.forEach((toggle) =>
+	toggle.addEventListener("click", toggleModeMenu),
+);
 
 const selectMode = (event) => {
 	let btn = event.target;
@@ -161,37 +196,50 @@ const selectMode = (event) => {
 	gameState.mode = selectedMode; //update mode based on selection
 
 	modeToggles.forEach((toggle) => toggle.classList.remove("active")); //remove 'active' className for all toggles
-	document.querySelector(`.${gameState.mode}-toggle`).classList.add('active');
+	document.querySelector(`.${gameState.mode}-toggle`).classList.add("active");
 	//btn.classList.add("active"); //add 'active' class name to only the toggle that was pressed
 
-	gameState.mode === 'timed' ? mobileModeDisplay.textContent = 'Timed(60s)' : mobileModeDisplay.textContent = 'Passage';
+	gameState.mode === "timed"
+		? (mobileModeDisplay.textContent = "Timed(60s)")
+		: (mobileModeDisplay.textContent = "Passage");
 
-	gameState.mode === 'timed' ? time.textContent = '1:00' : time.textContent = '0:00';
+	gameState.mode === "timed"
+		? (time.textContent = "1:00")
+		: (time.textContent = "0:00");
 
 	if (startTypingWindow.style.display === "none") {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
 	}
-	console.log(gameState.mode)
+	console.log(gameState.mode);
 };
 modeToggles.forEach((toggle) => toggle.addEventListener("click", selectMode));
-mobileModeSelectors.forEach((toggle) => toggle.addEventListener('click', selectMode));
+mobileModeSelectors.forEach((toggle) =>
+	toggle.addEventListener("click", selectMode),
+);
 
 //KEY PRESS EVENT LISTENER
 const keyPress = (event) => {
 	event.preventDefault(); //prevent default behavior of typing keys, including spacebar
-	
+
 	// Block control keys and only allow printable characters, except backspace/delete
 	if (event.key === "Backspace" || event.key === "Delete") {
 		if (gameState.passageIndex > 0) {
 			//if they backspace over a previously correct character, it will be removed from the correct character array
-			if(gameState.correctCharacters.includes(gameState.currentCharacter.dataset.id)){
-				let index = gameState.correctCharacters.indexOf(gameState.currentCharacter.dataset.id)
-				gameState.correctCharacters.splice(index, 1)
-			};
+			if (
+				gameState.correctCharacters.includes(
+					gameState.currentCharacter.dataset.id,
+				)
+			) {
+				let index = gameState.correctCharacters.indexOf(
+					gameState.currentCharacter.dataset.id,
+				);
+				gameState.correctCharacters.splice(index, 1);
+			}
 			gameState.currentCharacter.style.backgroundColor = "inherit"; //undoes highlight of previous character
 			gameState.currentCharacter.style.color = "var(--light-gray)";
 			gameState.passageIndex--; //changes passage index -1
-			gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
+			gameState.currentCharacter =
+				passageWindow.children[gameState.passageIndex]; //updates next character based on index
 			highlightCurrentCharacter(gameState.currentCharacter);
 		}
 		return;
@@ -208,34 +256,48 @@ const keyPress = (event) => {
 	const expectedChar = normalizeChar(gameState.currentCharacter.textContent);
 
 	if (typedChar === expectedChar) {
-		if(!gameState.correctCharacters.includes(gameState.currentCharacter.dataset.id)){
-			gameState.correctCharacters.push(gameState.currentCharacter.dataset.id); //increase correct characters entered
+		if (
+			!gameState.correctCharacters.includes(
+				gameState.currentCharacter.dataset.id,
+			)
+		) {
+			gameState.correctCharacters.push(
+				gameState.currentCharacter.dataset.id,
+			); //increase correct characters entered
 		}
 		turnCharacterGreen(gameState.currentCharacter); //correct input turns green
-		console.log(gameState.correctCharacters)
+		console.log(gameState.correctCharacters);
 	} else if (typedChar !== expectedChar) {
 		//if you backspace over a correct character, but input it wrong, it is removed from correct characters array
-			if(gameState.correctCharacters.includes(gameState.currentCharacter.dataset.id)){
-				let index = gameState.correctCharacters.indexOf(gameState.currentCharacter.dataset.id)
-				gameState.correctCharacters.splice(index, 1)
-			};
+		if (
+			gameState.correctCharacters.includes(
+				gameState.currentCharacter.dataset.id,
+			)
+		) {
+			let index = gameState.correctCharacters.indexOf(
+				gameState.currentCharacter.dataset.id,
+			);
+			gameState.correctCharacters.splice(index, 1);
+		}
 		turnCharacterRed(gameState.currentCharacter); //incorrect input turns red
 	}
 
 	gameState.calculateAccuracy();
 	accuracy.textContent = gameState.accuracy; //updates accuracy stat with each key press
 
-	accuracy.textContent !== "100%" ? statsColorChange(accuracy, "red"): statsColorChange(accuracy, "green"); //changes accuracy stat to red when its below 100% and back to green if it goes back up to 100%
+	accuracy.textContent !== "100%"
+		? statsColorChange(accuracy, "red")
+		: statsColorChange(accuracy, "green"); //changes accuracy stat to red when its below 100% and back to green if it goes back up to 100%
 
 	gameState.passageIndex++; //changes passage index +1 for every character input
 
 	if (gameState.passageIndex === gameState.passage.length) {
 		endGame(); //end game if they've typed in all characters
 	} else {
-		gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //updates next character based on index
+		gameState.currentCharacter =
+			passageWindow.children[gameState.passageIndex]; //updates next character based on index
 		highlightCurrentCharacter(gameState.currentCharacter); //next character is highlighted
 	}
-	
 };
 
 //GAME START
@@ -269,7 +331,7 @@ const startTyping = () => {
 		time.textContent = "1:00";
 		gameState.minutes = 1;
 		gameState.seconds = 0;
-		gameState.countdownTimer = setInterval(gameState.countdown, 1000)
+		gameState.countdownTimer = setInterval(gameState.countdown, 1000);
 	}
 
 	startTypingWindow.style.display = "none"; //hides start typing window, shows passage
@@ -283,10 +345,11 @@ const startTyping = () => {
 	statsColorChange(time, "yellow");
 	document.addEventListener("keydown", keyPress); //turns on event listener for key pressing once game has started
 };
-startTypingBtn.onclick = (e) => {
-	startTyping();
-	mobileKeyboardTrigger.focus();
-};//Clicking Start Typing button will close start typing window, set gameState properties, and show passage
+// startTypingBtn.onclick = (e) => {
+// 	startTyping();
+// 	mobileKeyboardTrigger.focus();
+// }; 
+// //Clicking Start Typing button will close start typing window, set gameState properties, and show passage
 
 startTypingWindow.onclick = (e) => {
 	startTyping();
@@ -306,51 +369,50 @@ const endGame = () => {
 	mobileKeyboardTrigger.blur();
 	window.scrollTo(0, 0);
 
-
-	if (!localStorage.personalBest){
-		localStorage.setItem('personalBest', gameState.wpm)
+	if (!localStorage.personalBest) {
+		localStorage.setItem("personalBest", gameState.wpm);
 		gameState.personalBest = gameState.wpm;
-		personalBestResult.textContent = gameState.personalBest + ' WPM'
-	} else if(localStorage.personalBest < gameState.wpm){
+		personalBestResult.textContent = gameState.personalBest + " WPM";
+	} else if (localStorage.personalBest < gameState.wpm) {
 		localStorage.personalBest = gameState.wpm;
 		gameState.personalBest = gameState.wpm;
-		personalBestResult.textContent = gameState.personalBest + ' WPM'
-	} 
+		personalBestResult.textContent = gameState.personalBest + " WPM";
+	}
 
 	//results
 	wpmResult.textContent = gameState.wpm;
 	accuracyResult.textContent = gameState.accuracy;
 	correctCharacters.textContent = gameState.correctCharacters.length;
-	incorrectCharacters.textContent = gameState.characterCount - gameState.correctCharacters.length;
+	incorrectCharacters.textContent =
+		gameState.characterCount - gameState.correctCharacters.length;
 };
 
 //loads your previous personal best from local storage
- window.addEventListener('load', () => {
-	if (localStorage.personalBest){
+window.addEventListener("load", () => {
+	if (localStorage.personalBest) {
 		gameState.personalBest = localStorage.personalBest;
-		personalBestResult.textContent = gameState.personalBest + ' WPM'
+		personalBestResult.textContent = gameState.personalBest + " WPM";
 	}
- });
+});
 
- //updated personal best text depending on screen size
-const personalBest = document.querySelector('.personal-best-display');
+//updated personal best text depending on screen size
+const personalBest = document.querySelector(".personal-best-display");
 
 function updatePersonalBestText() {
-  personalBest.textContent =
-    window.innerWidth < 685 ? 'Best:' : 'Personal Best:';
+	personalBest.textContent =
+		window.innerWidth < 685 ? "Best:" : "Personal Best:";
 }
 
-window.addEventListener('resize', updatePersonalBestText);
+window.addEventListener("resize", updatePersonalBestText);
 updatePersonalBestText();
 
- 
 //start over
 const startOver = () => {
 	testCompleteWindow.style.display = "none";
 	startTypingWindow.style.display = "flex";
 	gameState.correctCharacters = [];
-	clearInterval(gameState.passageTimer)
-	clearInterval(gameState.countdownTimer)
+	clearInterval(gameState.passageTimer);
+	clearInterval(gameState.countdownTimer);
 	window.scrollTo(0, 0);
 	mobileKeyboardTrigger.blur();
 
@@ -358,12 +420,12 @@ const startOver = () => {
 	statsColorChange(accuracy, "light-gray");
 	statsColorChange(time, "light-gray");
 
-	wpm.textContent = '0';
-	accuracy.textContent = '100%';
-	time.textContent = '0:00'
+	wpm.textContent = "0";
+	accuracy.textContent = "100%";
+	time.textContent = "0:00";
 
 	let randomI = Math.floor(Math.random() * passages.medium.length);
 	document.querySelector(".passage").textContent =
 		passages.medium[randomI].text; //puts random passage in the background of start typing screen
 };
-goAgainBtn.addEventListener("click", startOver); 
+goAgainBtn.addEventListener("click", startOver);

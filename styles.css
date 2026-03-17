@@ -282,7 +282,7 @@ input:checked {
 	padding: 32px 0px 64px;
 	border-bottom: 1px solid var(--light-black);
 	position: relative;
-    margin-bottom: 32px;
+	margin-bottom: 32px;
 }
 
 .passage,
@@ -301,7 +301,8 @@ input:checked {
 	scroll-margin-top: 32px;
 }
 
-.go-again-button, .restart-button {
+.go-again-button,
+.restart-button {
 	font-size: 20px;
 	font-weight: 500;
 	line-height: 120%;
@@ -316,8 +317,8 @@ input:checked {
 .restart-button {
 	background-color: var(--dark-gray);
 	color: var(--white);
-    margin: auto auto;
-    display: none;
+	margin: auto auto;
+	display: none;
 }
 
 #mobile-keyboard-trigger {
@@ -325,8 +326,9 @@ input:checked {
 	opacity: 0;
 	width: 1px;
 	height: 1px;
-    z-index: -5;
-    left: 50%;
+	z-index: -5;
+	left: 50%;
+    top: 50%;
 }
 
 .start-typing-window {
@@ -379,7 +381,7 @@ input:checked {
 	top: 0px;
 	left: 0px;
 	z-index: 3;
-    display: none;
+	display: none;
 }
 
 .test-complete-container{
@@ -395,7 +397,7 @@ input:checked {
 	box-shadow: 0px 0px 32px var(--green);
 	background-color: transparent;
 	border-radius: 100%;
-    margin-top: 64px;
+	margin-top: 64px;
 }
 
 p {
