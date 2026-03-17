@@ -326,6 +326,7 @@ input:checked {
 	width: 1px;
 	height: 1px;
     z-index: -5;
+    left: 50%;
 }
 
 .start-typing-window {
