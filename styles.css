@@ -205,7 +205,7 @@ header {
 
 .menu {
     width: 100%;
-    display: flex;
+    display: none;
     flex-direction: column;
     background-color: var(--light-black);
     color: var(--white);
@@ -268,16 +268,19 @@ header {
 	border-bottom: 1px solid var(--light-black);
 	position: relative;
 
+    .passage{
+        padding: 16px;
+    }
+
+    .passage span{
+        padding: 0px;
+        scroll-margin-top: 32px;
+    }
 	.passage,
 	.passage span {
 		font-size: 40px;
 		line-height: 136%;
 		letter-spacing: 0.4px;
-		padding: 16px;
-
-		span {
-			padding: 0px;
-		}
 	}
 
 	#mobile-keyboard-trigger {

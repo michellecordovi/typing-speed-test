@@ -13,17 +13,28 @@ const mobileKeyboardTrigger = document.getElementById('mobile-keyboard-trigger')
 const testCompleteWindow = document.querySelector(".test-complete-window"); //test complete window at end of game
 const goAgainBtn = document.querySelector(".go-again-button"); //go again button at end of game
 const passageWindow = document.querySelector(".passage"); //Passage container
+
+//STATS
 const wpm = document.getElementById("wpm"); //wpm counter
 const accuracy = document.getElementById("accuracy"); //accuracy counter
 const time = document.getElementById("time");
+
+//RESULTS 
 const wpmResult = document.querySelector('.wpm-result');
 const accuracyResult = document.querySelector('.accuracy-result');
 const correctCharacters = document.getElementById('correct-characters');
 const incorrectCharacters = document.getElementById('incorrect-characters')
-const difficultyToggles = document.querySelectorAll(".difficulty-toggle"); //
-const mobileDifficultyToggles = document.querySelectorAll('.difficulty-radio-button');
+
+//GAME SETTINGS
+const difficultyToggles = document.querySelectorAll(".difficulty-toggle"); 
+const mobileDifficultyButton = document.querySelector('.mobile-difficulty-toggle');
+const mobileDifficultyMenu = document.querySelector('.difficulty-radio-buttons');
+const mobileDifficultySelectors = document.querySelectorAll('.difficulty-radio-button');
 const mobileDifficultyDisplay = document.querySelector('.mobile-difficulty-display');
-const mobileModeToggles = document.querySelectorAll('.mode-radio-button');
+
+const mobileModeButton = document.querySelector('.mobile-mode-toggle');
+const mobileModeSelectors = document.querySelectorAll('.mode-radio-button');
+const mobileModeMenu = document.querySelector('.mode-radio-buttons');
 const mobileModeDisplay = document.querySelector('.mobile-mode-display')
 const modeToggles = document.querySelectorAll(".mode-toggle");
 
@@ -97,6 +108,13 @@ const gameState = {
 };
 
 //TOGGLE DIFFICULTY
+const toggleDifficultyMenu = () => {
+	mobileDifficultyMenu.style.display !== 'flex' ? mobileDifficultyMenu.style.display = 'flex' : mobileDifficultyMenu.style.display = 'none';
+}
+
+mobileDifficultyButton.addEventListener('click', toggleDifficultyMenu);
+mobileDifficultySelectors.forEach((toggle) => toggle.addEventListener('change', toggleDifficultyMenu));
+
 const selectDifficulty = (event) => {
 	let btn = event.target;
 	let selectedDifficulty = btn.dataset.difficulty;
@@ -125,9 +143,15 @@ const selectDifficulty = (event) => {
 	console.log(gameState.difficulty)
 };
 difficultyToggles.forEach((toggle) => toggle.addEventListener("click", selectDifficulty));
-mobileDifficultyToggles.forEach((toggle) => toggle.addEventListener('click', selectDifficulty));
+mobileDifficultySelectors.forEach((toggle) => toggle.addEventListener('click', selectDifficulty));
 
 //TOGGLE MODE
+const toggleModeMenu = () => {
+	mobileModeMenu.style.display !== 'flex' ? mobileModeMenu.style.display = 'flex' : mobileModeMenu.style.display = 'none';
+}
+mobileModeButton.addEventListener('click', toggleModeMenu);
+mobileModeSelectors.forEach((toggle) => toggle.addEventListener('click', toggleModeMenu));
+
 const selectMode = (event) => {
 	let btn = event.target;
 	let selectedMode = btn.dataset.mode;
@@ -148,7 +172,7 @@ const selectMode = (event) => {
 	console.log(gameState.mode)
 };
 modeToggles.forEach((toggle) => toggle.addEventListener("click", selectMode));
-mobileModeToggles.forEach((toggle) => toggle.addEventListener('click', selectMode));
+mobileModeSelectors.forEach((toggle) => toggle.addEventListener('click', selectMode));
 
 //KEY PRESS EVENT LISTENER
 const keyPress = (event) => {
