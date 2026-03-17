@@ -22,7 +22,9 @@ const correctCharacters = document.getElementById('correct-characters');
 const incorrectCharacters = document.getElementById('incorrect-characters')
 const difficultyToggles = document.querySelectorAll(".difficulty-toggle"); //
 const mobileDifficultyToggles = document.querySelectorAll('.difficulty-radio-button');
+const mobileDifficultyDisplay = document.querySelector('.mobile-difficulty-display');
 const mobileModeToggles = document.querySelectorAll('.mode-radio-button');
+const mobileModeDisplay = document.querySelector('.mobile-mode-display')
 const modeToggles = document.querySelectorAll(".mode-toggle");
 
 const personalBestResult = document.getElementById('personal-best')
@@ -104,7 +106,18 @@ const selectDifficulty = (event) => {
 	gameState.difficulty = selectedDifficulty; //update difficulty based on selection
 
 	difficultyToggles.forEach((toggle) => toggle.classList.remove("active")); //remove 'active' className for all toggles
-	btn.classList.add("active"); //add 'active' class name to only the toggle that was pressed
+	document.querySelector(`.${gameState.difficulty}-toggle`).classList.add('active');
+	//btn.classList.add("active"); //add 'active' class name to only the toggle that was pressed
+
+	function capitalizeFirstLetter(input){
+		let word = input;
+		word = word.split('');
+		word[0] = word[0].toUpperCase();
+		word = word.join('');
+    	return word;
+	}
+
+	mobileDifficultyDisplay.innerHTML = capitalizeFirstLetter(gameState.difficulty)
 
 	if (startTypingWindow.style.display === "none") {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
@@ -124,7 +137,10 @@ const selectMode = (event) => {
 	gameState.mode = selectedMode; //update mode based on selection
 
 	modeToggles.forEach((toggle) => toggle.classList.remove("active")); //remove 'active' className for all toggles
-	btn.classList.add("active"); //add 'active' class name to only the toggle that was pressed
+	document.querySelector(`.${gameState.mode}-toggle`).classList.add('active');
+	//btn.classList.add("active"); //add 'active' class name to only the toggle that was pressed
+
+	gameState.mode === 'timed' ? mobileModeDisplay.innerHTML = 'Timed(60s)' : mobileModeDisplay.innerHTML = 'Passage';
 
 	if (startTypingWindow.style.display === "none") {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
