@@ -66,10 +66,10 @@ const gameState = {
 				gameState.minutes++;
 			}
 
-			gameState.seconds < 10 ? time.innerHTML = `${gameState.minutes}:0${gameState.seconds}` : time.innerHTML = `${gameState.minutes}:${gameState.seconds}`;
+			gameState.seconds < 10 ? time.textContent = `${gameState.minutes}:0${gameState.seconds}` : time.textContent = `${gameState.minutes}:${gameState.seconds}`;
 	
 			gameState.calculateWPM();
-			wpm.innerHTML = gameState.wpm;//WPM is calculated every second
+			wpm.textContent = gameState.wpm;//WPM is calculated every second
 	}, //this starts a timer when mode is set to passage
 
 	countdown(){
@@ -80,10 +80,10 @@ const gameState = {
 			gameState.seconds--;
 		}
 
-		gameState.seconds < 10 ? time.innerHTML = `${gameState.minutes}:0${gameState.seconds}`: time.innerHTML = `${gameState.minutes}:${gameState.seconds}`;
+		gameState.seconds < 10 ? time.textContent = `${gameState.minutes}:0${gameState.seconds}`: time.textContent = `${gameState.minutes}:${gameState.seconds}`;
 		
 		gameState.calculateWPM();
-		wpm.innerHTML = gameState.wpm;//WPM is calculated every second
+		wpm.textContent = gameState.wpm;//WPM is calculated every second
 
 		if (gameState.seconds === 0){
 			endGame();
@@ -135,7 +135,7 @@ const selectDifficulty = (event) => {
     	return word;
 	}
 
-	mobileDifficultyDisplay.innerHTML = capitalizeFirstLetter(gameState.difficulty)
+	mobileDifficultyDisplay.textContent = capitalizeFirstLetter(gameState.difficulty)
 
 	if (startTypingWindow.style.display === "none") {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
@@ -164,7 +164,9 @@ const selectMode = (event) => {
 	document.querySelector(`.${gameState.mode}-toggle`).classList.add('active');
 	//btn.classList.add("active"); //add 'active' class name to only the toggle that was pressed
 
-	gameState.mode === 'timed' ? mobileModeDisplay.innerHTML = 'Timed(60s)' : mobileModeDisplay.innerHTML = 'Passage';
+	gameState.mode === 'timed' ? mobileModeDisplay.textContent = 'Timed(60s)' : mobileModeDisplay.textContent = 'Passage';
+
+	gameState.mode === 'timed' ? time.textContent = '1:00' : time.textContent = '0:00';
 
 	if (startTypingWindow.style.display === "none") {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
@@ -203,7 +205,7 @@ const keyPress = (event) => {
 	};
 
 	const typedChar = normalizeChar(event.key);
-	const expectedChar = normalizeChar(gameState.currentCharacter.innerHTML);
+	const expectedChar = normalizeChar(gameState.currentCharacter.textContent);
 
 	if (typedChar === expectedChar) {
 		if(!gameState.correctCharacters.includes(gameState.currentCharacter.dataset.id)){
@@ -221,9 +223,9 @@ const keyPress = (event) => {
 	}
 
 	gameState.calculateAccuracy();
-	accuracy.innerHTML = gameState.accuracy; //updates accuracy stat with each key press
+	accuracy.textContent = gameState.accuracy; //updates accuracy stat with each key press
 
-	accuracy.innerHTML !== "100%" ? statsColorChange(accuracy, "red"): statsColorChange(accuracy, "green"); //changes accuracy stat to red when its below 100% and back to green if it goes back up to 100%
+	accuracy.textContent !== "100%" ? statsColorChange(accuracy, "red"): statsColorChange(accuracy, "green"); //changes accuracy stat to red when its below 100% and back to green if it goes back up to 100%
 
 	gameState.passageIndex++; //changes passage index +1 for every character input
 
@@ -244,7 +246,7 @@ const startTyping = () => {
 	);
 	let span;
 
-	passageWindow.innerHTML = ""; //clears default passage places at document load
+	passageWindow.textContent = ""; //clears default passage places at document load
 	gameState.passage = passages[gameState.difficulty][randomIndex].text; //assigns passage a random passage based on difficulty selection
 
 	//creates a span element with the letter of each letter in the passage, adds this to the passage window
@@ -252,19 +254,19 @@ const startTyping = () => {
 	for (let i = 0; i < gameState.passage.length; i++) {
 		span = document.createElement("span");
 		span.classList.add("passage-char");
-		span.innerHTML = gameState.passage[i];
+		span.textContent = gameState.passage[i];
 		span.setAttribute("data-id", i);
 		passageWindow.appendChild(span);
 	}
 
 	//turns on timer depending on mode
 	if (gameState.mode === "passage") {
-		time.innerHTML = "0:00";
+		time.textContent = "0:00";
 		gameState.minutes = 0;
 		gameState.seconds = 0;
 		gameState.passageTimer = setInterval(gameState.timerFunction, 1000);
 	} else {
-		time.innerHTML = "1:00";
+		time.textContent = "1:00";
 		gameState.minutes = 1;
 		gameState.seconds = 0;
 		gameState.countdownTimer = setInterval(gameState.countdown, 1000)
@@ -297,27 +299,38 @@ const endGame = () => {
 	if (!localStorage.personalBest){
 		localStorage.setItem('personalBest', gameState.wpm)
 		gameState.personalBest = gameState.wpm;
-		personalBestResult.innerHTML = gameState.personalBest + ' WPM'
+		personalBestResult.textContent = gameState.personalBest + ' WPM'
 	} else if(localStorage.personalBest < gameState.wpm){
 		localStorage.personalBest = gameState.wpm;
 		gameState.personalBest = gameState.wpm;
-		personalBestResult.innerHTML = gameState.personalBest + ' WPM'
+		personalBestResult.textContent = gameState.personalBest + ' WPM'
 	} 
 
 	//results
-	wpmResult.innerHTML = gameState.wpm;
-	accuracyResult.innerHTML = gameState.accuracy;
-	correctCharacters.innerHTML = gameState.correctCharacters.length;
-	incorrectCharacters.innerHTML = gameState.characterCount - gameState.correctCharacters.length;
+	wpmResult.textContent = gameState.wpm;
+	accuracyResult.textContent = gameState.accuracy;
+	correctCharacters.textContent = gameState.correctCharacters.length;
+	incorrectCharacters.textContent = gameState.characterCount - gameState.correctCharacters.length;
 };
 
 //loads your previous personal best from local storage
  window.addEventListener('load', () => {
 	if (localStorage.personalBest){
 		gameState.personalBest = localStorage.personalBest;
-		personalBestResult.innerHTML = gameState.personalBest + ' WPM'
+		personalBestResult.textContent = gameState.personalBest + ' WPM'
 	}
  });
+
+ //updated personal best text depending on screen size
+const personalBest = document.querySelector('.personal-best-display');
+
+function updatePersonalBestText() {
+  personalBest.textContent =
+    window.innerWidth < 685 ? 'Best:' : 'Personal Best:';
+}
+
+window.addEventListener('resize', updatePersonalBestText);
+updatePersonalBestText();
 
  
 //start over
@@ -334,12 +347,12 @@ const startOver = () => {
 	statsColorChange(accuracy, "light-gray");
 	statsColorChange(time, "light-gray");
 
-	wpm.innerHTML = '0';
-	accuracy.innerHTML = '100%';
-	time.innerHTML = '0:00'
+	wpm.textContent = '0';
+	accuracy.textContent = '100%';
+	time.textContent = '0:00'
 
 	let randomI = Math.floor(Math.random() * passages.medium.length);
-	document.querySelector(".passage").innerHTML =
+	document.querySelector(".passage").textContent =
 		passages.medium[randomI].text; //puts random passage in the background of start typing screen
 };
 goAgainBtn.addEventListener("click", startOver); 

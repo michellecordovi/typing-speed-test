@@ -48,6 +48,12 @@ button {
 	}
 }
 
+@media only screen and (max-width: 685px) {
+	body{
+        padding:16px 16px;
+    }
+}
+
 /* HEADER */
 header {
 	display: flex;
@@ -220,8 +226,8 @@ header {
 	}
 }
 
-input:checked{
-    accent-color: var(--light-blue);
+input:checked {
+	accent-color: var(--light-blue);
 }
 
 .medium-input {
@@ -232,6 +238,7 @@ input:checked{
 .timed-input {
 	border-bottom: 1px solid var(--dark-gray);
 }
+
 @media only screen and (max-width: 685px) {
 	.stats {
 		width: 100%;
@@ -271,67 +278,66 @@ input:checked{
 	padding: 32px 0px 64px;
 	border-bottom: 1px solid var(--light-black);
 	position: relative;
+}
 
-	.passage {
-		padding: 16px;
-	}
+.passage,
+.passage span {
+	font-size: 40px;
+	line-height: 136%;
+	letter-spacing: 0.4px;
+}
 
-	.passage span {
-		padding: 0px;
-		scroll-margin-top: 32px;
-	}
-	.passage,
-	.passage span {
-		font-size: 40px;
-		line-height: 136%;
-		letter-spacing: 0.4px;
-	}
+.passage {
+	padding: 16px;
+}
 
-	#mobile-keyboard-trigger {
-		position: absolute;
-		opacity: 0;
-		width: 1px;
-		height: 1px;
-	}
+.passage span {
+	padding: 0px;
+	scroll-margin-top: 32px;
+}
 
-	.start-typing-window {
-		backdrop-filter: blur(10px);
-		font-size: 20px;
-		font-weight: 500;
-		position: absolute;
-		height: 100%;
-		width: 100%;
-		z-index: 2;
-		top: 0px;
-		left: 0px;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		gap: 20px;
+#mobile-keyboard-trigger {
+	position: absolute;
+	opacity: 0;
+	width: 1px;
+	height: 1px;
+}
 
-		.start-typing-button {
-			background-color: var(--dark-blue);
-			font-size: inherit;
-			font-weight: inherit;
-			color: var(--white);
-			border: none;
-			padding: 16px 24px;
-			border-radius: 12px;
-		}
-	}
+.start-typing-window {
+	backdrop-filter: blur(10px);
+	font-size: 20px;
+	font-weight: 500;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 2;
+	top: 0px;
+	left: 0px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+.start-typing-button {
+	background-color: var(--dark-blue);
+	font-size: inherit;
+	font-weight: inherit;
+	color: var(--white);
+	border: none;
+	padding: 16px 24px;
+	border-radius: 12px;
 }
 
 @media only screen and (max-width: 760px) {
-	.passage-box {
-		.passage {
-			font-size: 32px;
-		}
+	.passage, .passage span {
+		font-size: 32px;
+	}
 
-		.start-typing-window {
-			justify-content: start;
-			padding-top: 120px;
-		}
+	.start-typing-window {
+		justify-content: start;
+		padding-top: 120px;
 	}
 }
 
