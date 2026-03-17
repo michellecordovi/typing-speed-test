@@ -282,6 +282,7 @@ input:checked {
 	padding: 32px 0px 64px;
 	border-bottom: 1px solid var(--light-black);
 	position: relative;
+    margin-bottom: 32px;
 }
 
 .passage,
@@ -298,6 +299,25 @@ input:checked {
 .passage span {
 	padding: 0px;
 	scroll-margin-top: 32px;
+}
+
+.go-again-button, .restart-button {
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 120%;
+	letter-spacing: -0.3px;
+	padding: 10px 16px;
+	border-radius: 12px;
+	border: none;
+	display: flex;
+	gap: 6px;
+}
+
+.restart-button {
+	background-color: var(--dark-gray);
+	color: var(--white);
+    margin: auto auto;
+    display: none;
 }
 
 #mobile-keyboard-trigger {
@@ -357,6 +377,7 @@ input:checked {
 	top: 0px;
 	left: 0px;
 	z-index: 3;
+    display: none;
 }
 
 .test-complete-container{
@@ -418,15 +439,6 @@ p {
 .go-again-button {
 	background-color: var(--white);
 	color: var(--black);
-	font-size: 20px;
-	font-weight: 500;
-	line-height: 120%;
-	letter-spacing: -0.3px;
-	padding: 10px 16px;
-	border-radius: 12px;
-	border: none;
-	display: flex;
-	gap: 6px;
 }
 
 .red-star {

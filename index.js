@@ -288,6 +288,15 @@ startTypingBtn.onclick = (e) => {
 	mobileKeyboardTrigger.focus();
 };//Clicking Start Typing button will close start typing window, set gameState properties, and show passage
 
+startTypingWindow.onclick = (e) => {
+	startTyping();
+	mobileKeyboardTrigger.focus();
+};
+
+passageWindow.onclick = (e) => {
+	mobileKeyboardTrigger.focus();
+};
+
 //END GAME FUNTION
 const endGame = () => {
 	testCompleteWindow.style.display = "flex"; //results window appears
