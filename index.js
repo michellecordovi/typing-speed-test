@@ -304,6 +304,8 @@ const endGame = () => {
 	clearInterval(gameState.passageTimer);
 	clearInterval(gameState.countdownTimer);
 	mobileKeyboardTrigger.blur();
+	window.scrollTo(0, 0);
+
 
 	if (!localStorage.personalBest){
 		localStorage.setItem('personalBest', gameState.wpm)
