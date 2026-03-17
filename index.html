@@ -126,18 +126,24 @@
           <div class="difficulty-menu">
             <button class="toggle">
               <span class="mobile-difficulty-display">Easy</span>
-              <img src="./assets/images/icon-down-arrow.svg" alt="">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" fill="none" viewBox="0 0 11 6"><path fill="#fff" d="M4.742 5.836.117 1.242c-.156-.125-.156-.375 0-.531L.742.117a.36.36 0 0 1 .531 0l3.75 3.688L8.743.117c.155-.156.405-.156.53 0l.625.594c.157.156.157.406 0 .531L5.273 5.836a.36.36 0 0 1-.53 0"/></svg>
             </button>
 
-            <div class="difficulty-radio-buttons">
+            <div class="difficulty-radio-buttons menu">
+              <div>
               <input type="radio" id="hard" name="difficulty" value="hard" data-difficulty="hard" class="difficulty-radio-button">
               <label>Hard</label>
+              </div>
 
+              <div class="medium-input">
               <input type="radio" id="medium" name="difficulty" value="medium" data-difficulty="medium" class="difficulty-radio-button">
               <label>Medium</label>
+                </div>
 
+                <div>
               <input type="radio" id="easy" name="difficulty" value="easy" data-difficulty="easy" class="difficulty-radio-button">
               <label>Easy</label>
+              </div>
             </div>
           </div>
 
@@ -145,15 +151,19 @@
            <div class="mode-menu">
             <button class="toggle">
               <span class='mobile-mode-display'>Timed(60s)</span>
-              <img src="./assets/images/icon-down-arrow.svg" alt="">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="6" fill="none" viewBox="0 0 11 6"><path fill="#fff" d="M4.742 5.836.117 1.242c-.156-.125-.156-.375 0-.531L.742.117a.36.36 0 0 1 .531 0l3.75 3.688L8.743.117c.155-.156.405-.156.53 0l.625.594c.157.156.157.406 0 .531L5.273 5.836a.36.36 0 0 1-.53 0"/></svg>
             </button>
 
-            <div class="mode-radio-buttons">
+            <div class="mode-radio-buttons menu">
+              <div class="timed-input">
               <input type="radio" id="timed" name="mode" value="timed" data-mode="timed" class="mode-radio-button">
               <label>Timed</label>
+              </div>
 
+              <div>
               <input type="radio" id="passage" name="mode" value="passage"data-mode="passage" class="mode-radio-button">
               <label>Passage</label>
+              </div>
             </div>
           </div>
         </div>

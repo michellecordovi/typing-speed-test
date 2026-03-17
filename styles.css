@@ -162,6 +162,10 @@ header {
 	border: 1px solid var(--light-blue);
 }
 
+.toggle:hover svg path{
+        fill: var(--light-blue)
+}
+
 .difficulty-toggles-section {
 	display: flex;
 	align-items: center;
@@ -193,6 +197,35 @@ header {
 
 .mobile-toggles {
 	display: none;
+}
+
+.mode-menu, .difficulty-menu{
+    position: relative;
+}
+
+.menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--light-black);
+    color: var(--white);
+    border-radius: 8px;
+    position: absolute;
+    z-index: 5;
+    margin-top: 4px;
+
+    div{
+        padding: 8px 10px;
+    }
+
+    .medium-input{
+        border-top: 1px solid var(--dark-gray);
+        border-bottom: 1px solid var(--dark-gray);
+    }
+
+    .timed-input{
+        border-bottom: 1px solid var(--dark-gray);
+    }
 }
 
 @media only screen and (max-width: 685px) {
