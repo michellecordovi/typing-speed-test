@@ -373,12 +373,13 @@ input:checked {
 .test-complete-window {
 	width: 100%;
 	height: 100%;
+    padding-top: 64px;
 	background-color: var(--black);
 	position: absolute;
 	top: 0px;
 	left: 0px;
 	z-index: 3;
-    display: none;
+    display: flex;
 }
 
 .test-complete-container{
@@ -391,7 +392,7 @@ input:checked {
 }
 
 .complete-check {
-	box-shadow: 0px 0px 24px var(--green);
+	box-shadow: 0px 0px 32px var(--green);
 	background-color: transparent;
 	border-radius: 100%;
 }
