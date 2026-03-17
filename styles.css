@@ -379,7 +379,7 @@ input:checked {
 	top: 0px;
 	left: 0px;
 	z-index: 3;
-    display: flex;
+    display: none;
 }
 
 .test-complete-container{

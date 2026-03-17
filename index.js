@@ -351,7 +351,7 @@ const startOver = () => {
 	gameState.correctCharacters = [];
 	clearInterval(gameState.passageTimer)
 	clearInterval(gameState.countdownTimer)
-
+	window.scrollTo(0, 0);
 	mobileKeyboardTrigger.blur();
 
 	statsColorChange(wpm, "light-gray");
