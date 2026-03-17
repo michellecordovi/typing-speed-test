@@ -21,7 +21,10 @@ const accuracyResult = document.querySelector('.accuracy-result');
 const correctCharacters = document.getElementById('correct-characters');
 const incorrectCharacters = document.getElementById('incorrect-characters')
 const difficultyToggles = document.querySelectorAll(".difficulty-toggle"); //
+const mobileDifficultyToggles = document.querySelectorAll('.difficulty-radio-button');
+const mobileModeToggles = document.querySelectorAll('.mode-radio-button');
 const modeToggles = document.querySelectorAll(".mode-toggle");
+
 const personalBestResult = document.getElementById('personal-best')
 
 //GAME VARIABLES
@@ -106,10 +109,10 @@ const selectDifficulty = (event) => {
 	if (startTypingWindow.style.display === "none") {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
 	}
+	console.log(gameState.difficulty)
 };
-difficultyToggles.forEach((toggle) =>
-	toggle.addEventListener("click", selectDifficulty),
-);
+difficultyToggles.forEach((toggle) => toggle.addEventListener("click", selectDifficulty));
+mobileDifficultyToggles.forEach((toggle) => toggle.addEventListener('click', selectDifficulty));
 
 //TOGGLE MODE
 const selectMode = (event) => {
@@ -126,8 +129,10 @@ const selectMode = (event) => {
 	if (startTypingWindow.style.display === "none") {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
 	}
+	console.log(gameState.mode)
 };
 modeToggles.forEach((toggle) => toggle.addEventListener("click", selectMode));
+mobileModeToggles.forEach((toggle) => toggle.addEventListener('click', selectMode));
 
 //KEY PRESS EVENT LISTENER
 const keyPress = (event) => {
