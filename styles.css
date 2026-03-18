@@ -46,6 +46,7 @@ button {
 	cursor: pointer;
 }
 
+
 @media only screen and (max-width: 885px) {
 	body {
 		padding: 32px 32px;
@@ -216,7 +217,7 @@ header {
 
 .menu {
 	width: 100%;
-	display: none;
+	display: flex;
 	flex-direction: column;
 	background-color: var(--light-black);
 	color: var(--white);
@@ -318,7 +319,7 @@ input:checked {
 	background-color: var(--dark-gray);
 	color: var(--white);
 	margin: auto auto;
-	display: none;
+	display: flex;
 }
 
 #mobile-keyboard-trigger {
@@ -381,7 +382,7 @@ input:checked {
 	top: 0px;
 	left: 0px;
 	z-index: 3;
-	display: none;
+	display: flex;
 }
 
 .test-complete-container{
@@ -482,4 +483,9 @@ footer {
 
 a {
 	color: var(--light-blue);
+}
+
+
+.hidden{
+    display: none;
 }

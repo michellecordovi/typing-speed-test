@@ -11,6 +11,7 @@ const highlightCurrentCharacter = (character) => {
 	character.style.textDecoration = "none";
 	character.style.borderRadius = '2px'
 
+	//scrolls current character into view on screen
 	character.scrollIntoView({
 		block: "start",
 		inline: "nearest",
@@ -31,4 +32,8 @@ const turnCharacterRed = (character) => {
 	character.style.backgroundColor = "var(--black)";
 };
 
-export {highlightCurrentCharacter, turnCharacterGreen, turnCharacterRed, statsColorChange};
+const toggleDisplay = (element) => {
+	element.classList.contains('hidden') ? element.classList.remove('hidden') : element.classList.add('hidden');
+}
+
+export {highlightCurrentCharacter, turnCharacterGreen, turnCharacterRed, statsColorChange, toggleDisplay};

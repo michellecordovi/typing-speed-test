@@ -4,6 +4,7 @@ import {
 	turnCharacterGreen,
 	turnCharacterRed,
 	statsColorChange,
+	toggleDisplay,
 } from "./modules/ui.js";
 
 //DOCUMENT POINTER VARIABLES
@@ -127,15 +128,9 @@ const gameState = {
 };
 
 //TOGGLE DIFFICULTY
-const toggleDifficultyMenu = () => {
-	mobileDifficultyMenu.style.display !== "flex"
-		? (mobileDifficultyMenu.style.display = "flex")
-		: (mobileDifficultyMenu.style.display = "none");
-};
-
-mobileDifficultyButton.addEventListener("click", toggleDifficultyMenu);
+mobileDifficultyButton.addEventListener("click", () => toggleDisplay(mobileDifficultyMenu));
 mobileDifficultySelectors.forEach((toggle) =>
-	toggle.addEventListener("change", toggleDifficultyMenu),
+	toggle.addEventListener("change", () => toggleDisplay(mobileDifficultyMenu)),
 );
 
 const selectDifficulty = (event) => {
@@ -177,14 +172,9 @@ mobileDifficultySelectors.forEach((toggle) =>
 );
 
 //TOGGLE MODE
-const toggleModeMenu = () => {
-	mobileModeMenu.style.display !== "flex"
-		? (mobileModeMenu.style.display = "flex")
-		: (mobileModeMenu.style.display = "none");
-};
-mobileModeButton.addEventListener("click", toggleModeMenu);
+mobileModeButton.addEventListener("click", () => toggleDisplay(mobileModeMenu));
 mobileModeSelectors.forEach((toggle) =>
-	toggle.addEventListener("click", toggleModeMenu),
+	toggle.addEventListener("click", () => toggleDisplay(mobileModeMenu)),
 );
 
 const selectMode = (event) => {
@@ -348,7 +338,7 @@ const startTyping = () => {
 // startTypingBtn.onclick = (e) => {
 // 	startTyping();
 // 	mobileKeyboardTrigger.focus();
-// }; 
+// };
 // //Clicking Start Typing button will close start typing window, set gameState properties, and show passage
 
 startTypingWindow.onclick = (e) => {
