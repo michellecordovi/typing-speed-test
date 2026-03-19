@@ -279,11 +279,7 @@ input:checked {
 /* PASSAGE */
 .passage-box {
 	width: 100%;
-	min-height: 540px;
-	padding: 32px 0px 64px;
-	border-bottom: 1px solid var(--light-black);
 	position: relative;
-	margin-bottom: 32px;
 }
 
 .passage,
@@ -294,7 +290,10 @@ input:checked {
 }
 
 .passage {
-	padding: 16px;
+    min-height: 540px;
+	padding: 32px 16px 64px;
+	border-bottom: 1px solid var(--light-black);
+    margin-bottom: 32px;
 }
 
 .passage span {

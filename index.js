@@ -3,19 +3,21 @@ import {
 	highlightCurrentCharacter,
 	turnCharacterGreen,
 	turnCharacterRed,
+	undoCharacterStyling,
 	statsColorChange,
 	toggleDisplay,
+	capitalizeFirstLetter
 } from "./modules/ui.js";
 
 //DOCUMENT POINTER VARIABLES
 const startTypingWindow = document.querySelector(".start-typing-window"); //Start Typing window
-const startTypingBtn = document.querySelector(".start-typing-button"); //Start Typing button
 const mobileKeyboardTrigger = document.getElementById(
 	"mobile-keyboard-trigger",
 );
 const testCompleteWindow = document.querySelector(".test-complete-window"); //test complete window at end of game
 const goAgainBtn = document.querySelector(".go-again-button"); //go again button at end of game
 const passageWindow = document.querySelector(".passage"); //Passage container
+const restartButton = document.querySelector(".restart-button"); //restart button
 
 //STATS
 const wpm = document.getElementById("wpm"); //wpm counter
@@ -31,13 +33,13 @@ const incorrectCharacters = document.getElementById("incorrect-characters");
 //GAME SETTINGS
 const difficultyToggles = document.querySelectorAll(".difficulty-toggle");
 const mobileDifficultyButton = document.querySelector(
-	".mobile-difficulty-toggle",
+	".mobile-difficulty-toggle"
 );
 const mobileDifficultyMenu = document.querySelector(
-	".difficulty-radio-buttons",
+	".difficulty-radio-buttons"
 );
 const mobileDifficultySelectors = document.querySelectorAll(
-	".difficulty-radio-button",
+	".difficulty-radio-button"
 );
 const mobileDifficultyDisplay = document.querySelector(
 	".mobile-difficulty-display",
@@ -128,9 +130,13 @@ const gameState = {
 };
 
 //TOGGLE DIFFICULTY
-mobileDifficultyButton.addEventListener("click", () => toggleDisplay(mobileDifficultyMenu));
+mobileDifficultyButton.addEventListener("click", () =>
+	toggleDisplay(mobileDifficultyMenu),
+);
 mobileDifficultySelectors.forEach((toggle) =>
-	toggle.addEventListener("change", () => toggleDisplay(mobileDifficultyMenu)),
+	toggle.addEventListener("change", () =>
+		toggleDisplay(mobileDifficultyMenu),
+	),
 );
 
 const selectDifficulty = (event) => {
@@ -147,19 +153,11 @@ const selectDifficulty = (event) => {
 		.classList.add("active");
 	//btn.classList.add("active"); //add 'active' class name to only the toggle that was pressed
 
-	function capitalizeFirstLetter(input) {
-		let word = input;
-		word = word.split("");
-		word[0] = word[0].toUpperCase();
-		word = word.join("");
-		return word;
-	}
-
 	mobileDifficultyDisplay.textContent = capitalizeFirstLetter(
 		gameState.difficulty,
 	);
 
-	if (startTypingWindow.classList.contains('hidden')) {
+	if (startTypingWindow.classList.contains("hidden")) {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
 	}
 	console.log(gameState.difficulty);
@@ -197,7 +195,7 @@ const selectMode = (event) => {
 		? (time.textContent = "1:00")
 		: (time.textContent = "0:00");
 
-	if (startTypingWindow.classList.contains('hidden')) {
+	if (startTypingWindow.classList.contains("hidden")) {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
 	}
 	console.log(gameState.mode);
@@ -311,6 +309,8 @@ const startTyping = () => {
 		passageWindow.appendChild(span);
 	}
 
+	toggleDisplay(restartButton); //show restart button
+
 	//turns on timer depending on mode
 	if (gameState.mode === "passage") {
 		time.textContent = "0:00";
@@ -335,11 +335,6 @@ const startTyping = () => {
 	statsColorChange(time, "yellow");
 	document.addEventListener("keydown", keyPress); //turns on event listener for key pressing once game has started
 };
-// startTypingBtn.onclick = (e) => {
-// 	startTyping();
-// 	mobileKeyboardTrigger.focus();
-// };
-// //Clicking Start Typing button will close start typing window, set gameState properties, and show passage
 
 startTypingWindow.onclick = (e) => {
 	startTyping();
@@ -352,7 +347,7 @@ passageWindow.onclick = (e) => {
 
 //END GAME FUNTION
 const endGame = () => {
-	toggleDisplay(testCompleteWindow)//results window appears
+	toggleDisplay(testCompleteWindow); //results window appears
 	document.removeEventListener("keydown", keyPress); //when game is over, document stops listening for keys input
 	clearInterval(gameState.passageTimer);
 	clearInterval(gameState.countdownTimer);
@@ -398,11 +393,12 @@ updatePersonalBestText();
 
 //start over
 const startOver = () => {
-	if (!testCompleteWindow.classList.contains('hidden')){
+	if (!testCompleteWindow.classList.contains("hidden")) {
 		toggleDisplay(testCompleteWindow);
-	}//if the results page is up, it will disappear. if the results page isn't up, this means they're starting over in the middle of a game and the results page will not be toggled.
-	
+	} //if the results page is up, it will disappear. if the results page isn't up, this means they're starting over in the middle of a game and the results page will not be toggled.
+
 	toggleDisplay(startTypingWindow);
+	toggleDisplay(restartButton);
 	gameState.correctCharacters = [];
 	clearInterval(gameState.passageTimer);
 	clearInterval(gameState.countdownTimer);
@@ -422,3 +418,32 @@ const startOver = () => {
 		passages.medium[randomI].text; //puts random passage in the background of start typing screen
 };
 goAgainBtn.addEventListener("click", startOver);
+
+const restart = () => {
+	window.scrollTo(0, 0);
+
+	//turns on timer depending on mode
+	if (gameState.mode === "passage") {
+		time.textContent = "0:00";
+		gameState.minutes = 0;
+		gameState.seconds = 0;
+	} else {
+		time.textContent = "1:00";
+		gameState.minutes = 1;
+		gameState.seconds = 0;
+	}
+
+	for (let i = 0; i < gameState.passage.length; i++) {
+		undoCharacterStyling(passageWindow.children[i])
+	};
+
+	gameState.passageIndex = 0; //passage index resets to 0 at start of game
+	gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //sets current character to first SPAN ELEMENT in the new passage
+	highlightCurrentCharacter(gameState.currentCharacter); //highlights first character at start of game
+	gameState.correctCharacters = []; //clears out all correct characters
+	gameState.calculateWPM();
+	wpm.textContent = gameState.wpm;
+	accuracy.textContent = '100%';
+	statsColorChange(accuracy, 'green')
+};
+restartButton.onclick = restart;
