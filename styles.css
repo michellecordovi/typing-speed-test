@@ -228,6 +228,16 @@ header {
 
 	div {
 		padding: 8px 10px;
+        display: flex;
+
+        input {
+            margin-right: 8px;
+        }
+
+        label{
+            display: inline-block;
+            width: 100%;
+        }
 	}
 }
 
