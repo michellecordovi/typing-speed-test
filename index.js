@@ -159,7 +159,7 @@ const selectDifficulty = (event) => {
 		gameState.difficulty,
 	);
 
-	if (startTypingWindow.style.display === "none") {
+	if (startTypingWindow.classList.contains('hidden')) {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
 	}
 	console.log(gameState.difficulty);
@@ -197,7 +197,7 @@ const selectMode = (event) => {
 		? (time.textContent = "1:00")
 		: (time.textContent = "0:00");
 
-	if (startTypingWindow.style.display === "none") {
+	if (startTypingWindow.classList.contains('hidden')) {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
 	}
 	console.log(gameState.mode);
@@ -324,7 +324,7 @@ const startTyping = () => {
 		gameState.countdownTimer = setInterval(gameState.countdown, 1000);
 	}
 
-	startTypingWindow.style.display = "none"; //hides start typing window, shows passage
+	toggleDisplay(startTypingWindow); //hides start typing window, shows passage
 	gameState.characterCount = gameState.passage.length; //calculates character count
 	gameState.wordCount = gameState.passage.split(" ").length; //calculates word count
 	gameState.passageIndex = 0; //passage index resets to 0 at start of game
@@ -352,7 +352,7 @@ passageWindow.onclick = (e) => {
 
 //END GAME FUNTION
 const endGame = () => {
-	testCompleteWindow.style.display = "flex"; //results window appears
+	toggleDisplay(testCompleteWindow)//results window appears
 	document.removeEventListener("keydown", keyPress); //when game is over, document stops listening for keys input
 	clearInterval(gameState.passageTimer);
 	clearInterval(gameState.countdownTimer);
@@ -398,8 +398,11 @@ updatePersonalBestText();
 
 //start over
 const startOver = () => {
-	testCompleteWindow.style.display = "none";
-	startTypingWindow.style.display = "flex";
+	if (!testCompleteWindow.classList.contains('hidden')){
+		toggleDisplay(testCompleteWindow);
+	}//if the results page is up, it will disappear. if the results page isn't up, this means they're starting over in the middle of a game and the results page will not be toggled.
+	
+	toggleDisplay(startTypingWindow);
 	gameState.correctCharacters = [];
 	clearInterval(gameState.passageTimer);
 	clearInterval(gameState.countdownTimer);
