@@ -324,6 +324,12 @@ const startTyping = () => {
 		gameState.countdownTimer = setInterval(gameState.countdown, 1000);
 	}
 
+	if (!mobileDifficultyMenu.classList.contains('hidden')){
+		toggleDisplay(mobileDifficultyMenu);
+	} else if(!mobileModeMenu.classList.contains('hidden')){
+		toggleDisplay(mobileModeMenu);
+	}
+
 	toggleDisplay(startTypingWindow); //hides start typing window, shows passage
 	gameState.characterCount = gameState.passage.length; //calculates character count
 	gameState.wordCount = gameState.passage.split(" ").length; //calculates word count
