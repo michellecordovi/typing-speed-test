@@ -6,7 +6,7 @@ import {
 	undoCharacterStyling,
 	statsColorChange,
 	toggleDisplay,
-	capitalizeFirstLetter
+	capitalizeFirstLetter,
 } from "./modules/ui.js";
 
 //DOCUMENT POINTER VARIABLES
@@ -33,13 +33,13 @@ const incorrectCharacters = document.getElementById("incorrect-characters");
 //GAME SETTINGS
 const difficultyToggles = document.querySelectorAll(".difficulty-toggle");
 const mobileDifficultyButton = document.querySelector(
-	".mobile-difficulty-toggle"
+	".mobile-difficulty-toggle",
 );
 const mobileDifficultyMenu = document.querySelector(
-	".difficulty-radio-buttons"
+	".difficulty-radio-buttons",
 );
 const mobileDifficultySelectors = document.querySelectorAll(
-	".difficulty-radio-button"
+	".difficulty-radio-button",
 );
 const mobileDifficultyDisplay = document.querySelector(
 	".mobile-difficulty-display",
@@ -324,9 +324,9 @@ const startTyping = () => {
 		gameState.countdownTimer = setInterval(gameState.countdown, 1000);
 	}
 
-	if (!mobileDifficultyMenu.classList.contains('hidden')){
+	if (!mobileDifficultyMenu.classList.contains("hidden")) {
 		toggleDisplay(mobileDifficultyMenu);
-	} else if(!mobileModeMenu.classList.contains('hidden')){
+	} else if (!mobileModeMenu.classList.contains("hidden")) {
 		toggleDisplay(mobileModeMenu);
 	}
 
@@ -352,6 +352,9 @@ passageWindow.onclick = (e) => {
 };
 
 //END GAME FUNTION
+const testResultHeader = document.getElementById("test-result-header");
+const testResultParagraph = document.getElementById("test-result-paragraph");
+
 const endGame = () => {
 	toggleDisplay(testCompleteWindow); //results window appears
 	document.removeEventListener("keydown", keyPress); //when game is over, document stops listening for keys input
@@ -364,10 +367,49 @@ const endGame = () => {
 		localStorage.setItem("personalBest", gameState.wpm);
 		gameState.personalBest = gameState.wpm;
 		personalBestResult.textContent = gameState.personalBest + " WPM";
+		testResultHeader.textContent = "Baseline Established!";
+		testResultParagraph.textContent = `You've set the bar. Now the real challenge begins - time to beat it.`;
 	} else if (localStorage.personalBest < gameState.wpm) {
 		localStorage.personalBest = gameState.wpm;
 		gameState.personalBest = gameState.wpm;
 		personalBestResult.textContent = gameState.personalBest + " WPM";
+		testResultHeader.textContent = "High Score Smashed!";
+		testResultParagraph.textContent = `You're getting faster. That was incredible typing.`;
+
+		//confetti code
+		let duration = 4000;
+		let animationEnd = Date.now() + duration;
+		let defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+		function randomInRange(min, max) {
+			return Math.random() * (max - min) + min;
+		}
+
+		let interval = setInterval(function () {
+			let timeLeft = animationEnd - Date.now();
+
+			if (timeLeft <= 0) {
+				return clearInterval(interval);
+			}
+
+			let particleCount = 50 * (timeLeft / duration);
+			// since particles fall down, start a bit higher than random
+			confetti({
+				...defaults,
+				particleCount,
+				origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+			});
+			confetti({
+				...defaults,
+				particleCount,
+				origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+			});
+		}, 250);
+
+	} else if (localStorage.personalBest > gameState.wpm) {
+		testResultHeader.textContent = "Test Complete!";
+		testResultParagraph.textContent =
+			"Solid run. Keep pushing to beat your high score.";
 	}
 
 	//results
@@ -424,32 +466,33 @@ const startOver = () => {
 		passages.medium[randomI].text; //puts random passage in the background of start typing screen
 };
 goAgainBtn.addEventListener("click", startOver);
+restartButton.onclick = startOver;
 
-const restart = () => {
-	window.scrollTo(0, 0);
+// const restart = () => {
+// 	window.scrollTo(0, 0);
 
-	//turns on timer depending on mode
-	if (gameState.mode === "passage") {
-		time.textContent = "0:00";
-		gameState.minutes = 0;
-		gameState.seconds = 0;
-	} else {
-		time.textContent = "1:00";
-		gameState.minutes = 1;
-		gameState.seconds = 0;
-	}
+// 	//turns on timer depending on mode
+// 	if (gameState.mode === "passage") {
+// 		time.textContent = "0:00";
+// 		gameState.minutes = 0;
+// 		gameState.seconds = 0;
+// 	} else {
+// 		time.textContent = "1:00";
+// 		gameState.minutes = 1;
+// 		gameState.seconds = 0;
+// 	}
 
-	for (let i = 0; i < gameState.passage.length; i++) {
-		undoCharacterStyling(passageWindow.children[i])
-	};
+// 	for (let i = 0; i < gameState.passage.length; i++) {
+// 		undoCharacterStyling(passageWindow.children[i]);
+// 	}
 
-	gameState.passageIndex = 0; //passage index resets to 0 at start of game
-	gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //sets current character to first SPAN ELEMENT in the new passage
-	highlightCurrentCharacter(gameState.currentCharacter); //highlights first character at start of game
-	gameState.correctCharacters = []; //clears out all correct characters
-	gameState.calculateWPM();
-	wpm.textContent = gameState.wpm;
-	accuracy.textContent = '100%';
-	statsColorChange(accuracy, 'green')
-};
-restartButton.onclick = restart;
+// 	gameState.passageIndex = 0; //passage index resets to 0 at start of game
+// 	gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //sets current character to first SPAN ELEMENT in the new passage
+// 	highlightCurrentCharacter(gameState.currentCharacter); //highlights first character at start of game
+// 	gameState.correctCharacters = []; //clears out all correct characters
+// 	gameState.calculateWPM();
+// 	wpm.textContent = gameState.wpm;
+// 	accuracy.textContent = "100%";
+// 	statsColorChange(accuracy, "green");
+// };
+
