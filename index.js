@@ -160,7 +160,6 @@ const selectDifficulty = (event) => {
 	if (startTypingWindow.classList.contains("hidden")) {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
 	}
-	console.log(gameState.difficulty);
 };
 difficultyToggles.forEach((toggle) =>
 	toggle.addEventListener("click", selectDifficulty),
@@ -198,7 +197,6 @@ const selectMode = (event) => {
 	if (startTypingWindow.classList.contains("hidden")) {
 		startOver(); //opens up start typing window again if they click the toggle in the middle of the game
 	}
-	console.log(gameState.mode);
 };
 modeToggles.forEach((toggle) => toggle.addEventListener("click", selectMode));
 mobileModeSelectors.forEach((toggle) =>
@@ -223,12 +221,13 @@ const keyPress = (event) => {
 				);
 				gameState.correctCharacters.splice(index, 1);
 			}
-			gameState.currentCharacter.style.backgroundColor = "inherit"; //undoes highlight of previous character
-			gameState.currentCharacter.style.color = "var(--light-gray)";
+
+			undoCharacterStyling(gameState.currentCharacter);//reverts character to original gray font
+			
 			gameState.passageIndex--; //changes passage index -1
 			gameState.currentCharacter =
 				passageWindow.children[gameState.passageIndex]; //updates next character based on index
-			highlightCurrentCharacter(gameState.currentCharacter);
+			highlightCurrentCharacter(gameState.currentCharacter); //highlights new current character after backspace
 		}
 		return;
 	} else if (event.key.length > 1 || event.ctrlKey || event.metaKey) {
@@ -254,7 +253,7 @@ const keyPress = (event) => {
 			); //increase correct characters entered
 		}
 		turnCharacterGreen(gameState.currentCharacter); //correct input turns green
-		console.log(gameState.correctCharacters);
+		
 	} else if (typedChar !== expectedChar) {
 		//if you backspace over a correct character, but input it wrong, it is removed from correct characters array
 		if (
@@ -467,32 +466,3 @@ const startOver = () => {
 };
 goAgainBtn.addEventListener("click", startOver);
 restartButton.onclick = startOver;
-
-// const restart = () => {
-// 	window.scrollTo(0, 0);
-
-// 	//turns on timer depending on mode
-// 	if (gameState.mode === "passage") {
-// 		time.textContent = "0:00";
-// 		gameState.minutes = 0;
-// 		gameState.seconds = 0;
-// 	} else {
-// 		time.textContent = "1:00";
-// 		gameState.minutes = 1;
-// 		gameState.seconds = 0;
-// 	}
-
-// 	for (let i = 0; i < gameState.passage.length; i++) {
-// 		undoCharacterStyling(passageWindow.children[i]);
-// 	}
-
-// 	gameState.passageIndex = 0; //passage index resets to 0 at start of game
-// 	gameState.currentCharacter = passageWindow.children[gameState.passageIndex]; //sets current character to first SPAN ELEMENT in the new passage
-// 	highlightCurrentCharacter(gameState.currentCharacter); //highlights first character at start of game
-// 	gameState.correctCharacters = []; //clears out all correct characters
-// 	gameState.calculateWPM();
-// 	wpm.textContent = gameState.wpm;
-// 	accuracy.textContent = "100%";
-// 	statsColorChange(accuracy, "green");
-// };
-
