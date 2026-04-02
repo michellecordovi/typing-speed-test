@@ -316,7 +316,11 @@ const startTyping = () => {
 	gameState.passageIndex = 0; //passage index resets to 0 at start of game
 	gameState.currentCharacter =
 		gameWindows.passageWindow.children[gameState.passageIndex]; //sets current character to first SPAN ELEMENT in the new passage
-	highlightCurrentCharacter(gameState.currentCharacter); //highlights first character at start of game
+
+	// Small delay to allow DOM to finish rendering before scrolling
+	setTimeout(() => {
+		highlightCurrentCharacter(gameState.currentCharacter); //highlights first character at start of game
+	}, 50);
 	statsColorChange(statsDisplay.wpm, "white");
 	statsColorChange(statsDisplay.accuracy, "green");
 	statsColorChange(statsDisplay.time, "yellow");

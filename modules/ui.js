@@ -59,5 +59,5 @@ export {
 	undoCharacterStyling,
 	statsColorChange,
 	toggleDisplay,
-	capitalizeFirstLetter
+	capitalizeFirstLetter,
 };
