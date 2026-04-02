@@ -42,53 +42,59 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [typing-speed-test](https://github.com/michellecordovi/typing-speed-test)
+- Live Site URL: [https://michellecordovi.github.io/typing-speed-test/](https://michellecordovi.github.io/typing-speed-test/)
 
 ## My process
 
 ### Built with
 
-- Semantic HTML5 markup
+- Semantic HTML5
 - CSS custom properties
 - Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
+- Mobile-first responsive design
+- Vanilla JavaScript
+- JavaScript Modules for code organization
+- Local Storage API
+- Fetch API
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+This project challenged me to build a fully interactive, real-time application without relying on frameworks, which significantly strengthened my understanding of core JavaScript concepts.
 
-To see how you can add code snippets, see below:
+One of the most interesting challenges was handling user input without a traditional input field. Instead of typing into an <input>, I tracked keystrokes globally and mapped them to individual characters in the prompt. This required careful event handling and state tracking, especially for edge cases like backspacing, restarting, and completing the test.
+
+I also implemented logic to ensure the currently typed character stays in view as the user progresses. This introduced me to JavaScript scrolling methods and viewport management, particularly important for mobile usability.
+
+```js
+currentCharElement.scrollIntoView({
+  behavior: "smooth",
+  block: "center"
+});
+```
+
+Another key learning area was building timer functionality from scratch. I implemented both a countdown timer and an elapsed time tracker, which required precise control over intervals and state updates.
+
+To manage the growing complexity of the application, I organized my code into separate JavaScript modules. This improved readability, maintainability, and made debugging significantly easier.
+
+I also explored using data-* attributes to associate DOM elements with their corresponding characters, making it easier to track correctness and user progress.
 
 ```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
+<span data-char="a">a</span>
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+Additionally, I used local storage to persist the user's personal best score, allowing progress to carry across sessions.
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+In future iterations of this project, I plan to:
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+- Convert the application into a Progressive Web App (PWA) to support offline use and installability
+- Improve performance and optimize event handling for larger text sets
+- Enhance accessibility, particularly for keyboard navigation and screen readers
+- Refine the UI/UX for an even smoother mobile typing experience (particularly on mobile)
 
 ### Useful resources
 
@@ -99,24 +105,22 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 ### AI Collaboration
 
-Describe how you used AI tools (if any) during this project. This helps demonstrate your ability to work effectively with AI assistants.
+I make it a point to create the code myself and allow myself to get stumped. I use AI tooks primarily to improve code quality rather than generate solutions.
 
-- What tools did you use (e.g., ChatGPT, Claude, GitHub Copilot)?
-- How did you use them (e.g., debugging, generating boilerplate, brainstorming solutions)?
-- What worked well? What didn't?
+Tools used: ChatGPT, Windsurf SWE 1.5
+Use cases:
+- Reviewing code for efficiency and simplification
+- Identifying opportunities to refactor or reduce redundancy
 
-**Note: Delete this note and the content above if you didn't use AI, or replace with your own experience.**
+I primarily wrote the implementation myself, using AI as a secondary tool to validate and refine my approach. This helped me stay hands-on with problem-solving while still benefiting from feedback and optimization suggestions.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Website - [Marigold Web Studio](https://www.marigoldwebstudio.com)
+- Frontend Mentor - [@michellecordovi](https://www.frontendmentor.io/profile/michellecordovi)
+- LinkedIn - [Michelle Cordovi](https://www.linkedin.com/in/michelle-cordovi-dpt/)
 
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
 
 ## Acknowledgments
 
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+Thanks to Frontend Mentor for providing a realistic and challenging project that pushed me to deepen my understanding of JavaScript and browser behavior.
