@@ -290,12 +290,17 @@ const keyPress = (event) => {
 //GAME START
 
 const startTyping = () => {
+	if(!passages){
+		return;
+	}//nothing will happen if the passages haven't loaded
+
 	let randomIndex = Math.floor(
 		Math.random() * passages[gameState.difficulty].length,
 	);
+	
 	let span;
 
-	passageWindow.textContent = ""; //clears default passage places at document load
+	passageWindow.textContent = ""; //clears default passage placed at document load
 	gameState.passage = passages[gameState.difficulty][randomIndex].text; //assigns passage a random passage based on difficulty selection
 
 	//creates a span element with the letter of each letter in the passage, adds this to the passage window
