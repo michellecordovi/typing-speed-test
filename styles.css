@@ -33,7 +33,7 @@ main {
 	flex: 1;
 }
 
-h1 {
+h2 {
 	font-size: 40px;
 	line-height: 136%;
 	letter-spacing: 0.4px;
@@ -359,6 +359,13 @@ input:checked {
 	justify-content: center;
 	align-items: center;
 	gap: 20px;
+}
+
+.start-typing-window h1{
+	font-size: inherit;
+	color: var(--light-gray);
+	font-weight: 400;
+	margin: 0px;
 }
 
 .start-typing-button {
